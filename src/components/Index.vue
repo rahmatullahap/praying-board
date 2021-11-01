@@ -291,6 +291,7 @@ export default {
       // 10 minute after adzan
       itv: 600,
       playing: true,
+      initiateDate: String
     };
   },
   beforeUnmount() {
@@ -301,11 +302,18 @@ export default {
     this.active = "Fajr";
     this.getPrayTime();
 
+    this.initiateDate = DateTime.local().toFormat("dd-MM-yyyy");
+
     // update the time every second
     this.interval = setInterval(() => {
-      // Concise way to format time according to system locale.
-      // In my case this returns "3:48:00 am"
-      this.time = DateTime.local().setLocale("id").toFormat("HH:mm:ss");
+      const now = DateTime.local();
+      this.time = now.setLocale("id").toFormat("HH:mm:ss");
+
+      // refresh on every date change
+      if (this.initiateDate !== now.toFormat("dd-MM-yyyy")) {
+        this.getPrayTime();
+        this.initiateDate = now.toFormat("dd-MM-yyyy");
+      }
 
       this.getNearerTime();
     }, 1000);
