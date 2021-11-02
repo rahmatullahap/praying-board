@@ -1,76 +1,80 @@
 <template>
-  <div>
-    <div class="relative m-0">
-      <!-- <div class="flex flex-col items-center justify-center h-screen relative"> -->
-      <div class="h-screen">
+  <div class="bg-orange">
+    <div class="grid grid-cols-6 gap-0">
+      <div class="col-span-1 bg-green">
         <div
-          class="header w-full grid grid-cols-3 gaps-2 bg-white pt-4"
-          style="z-index: 2"
+          class="
+            text-center
+            mt-4
+            mb-1
+            text-3xl
+            font-semibold
+            flex flex-row
+            items-center
+          "
         >
-          <div
-            class="
-              text-center
-              my-4
-              text-3xl
-              font-semibold
-              flex flex-row
-              items-center
-            "
-          >
-            <div class="font-nunito w-full text-3xl m-2">
-              <div>
-                {{ formatDate(date) }}
-              </div>
-            </div>
+          <div class="text-white font-nunito w-full text-6xl mx-2">
+            <div>{{ time }}</div>
           </div>
-          <div>
-            <img class="logo" src="../assets/logo-alamanah.png" />
-            <div class="font-ubuntu text-center">
-              <h1 class="text-2xl font-extrabold my-2">Masjid Al Amanah</h1>
-              <h2 class="font-semibold">Jl. Kawaluyaan Indah I No.11</h2>
-            </div>
+        </div>
+        <div
+          class="
+            font-nunito
+            w-full
+            text-2xl text-white text-center
+            font-extrabold
+            relative
+          "
+        >
+          <div class="absolute -bottom-4 w-full">
+            {{ formatDate(date) }}
           </div>
+        </div>
+        <div class="m-2 side-content">
+          <!-- TODO side content -->
+        </div>
+      </div>
+
+      <div class="relative m-0 col-span-5">
+        <!-- <div class="flex flex-col items-center justify-center h-screen relative"> -->
+        <div class="h-screen">
           <div
-            class="
-              text-center
-              my-4
-              text-3xl
-              font-semibold
-              flex flex-row
-              items-center
-            "
+            class="header bg-transparent w-full grid grid-cols-3 gaps-2 pt-4"
+            style="z-index: 2"
           >
             <div
               class="
-                bg-blue-midnight
-                text-white
-                border border-solid
-                rounded-2xl
-                font-nunito
-                w-full
-                text-6xl
-                m-2
+                text-center
+                my-4
+                text-3xl
+                font-semibold
+                flex flex-row
+                items-center
               "
             >
-              <div>{{ time }} WIB</div>
+              <!-- <div class="font-nunito w-full text-3xl m-2">
+                <div>
+                  {{ formatDate(date) }}
+                </div>
+              </div> -->
             </div>
-          </div>
-        </div>
-        <div class="mt-4 mx-auto p-4 w-1/2">
-          <div
-            class="
-              main-content
-              text-center text-2xl
-              font-semibold
-              flex flex-row
-              items-center
-            "
-          >
-            <div
-              class="my-4 items-center h-full w-full"
-              v-if="beforeSholat < itv && beforeSholat > 0"
+            <div>
+              <img class="logo" src="../assets/logo.png" />
+              <div class="font-ubuntu text-center">
+                <h1 class="text-2xl font-extrabold uppercase text-blue-midnight">Masjid Al Amanah</h1>
+                <h2 class="font-semibold text-blue-midnight">Jl. Kawaluyaan Indah I No.11</h2>
+              </div>
+            </div>
+            <!-- <div
+              class="
+                text-center
+                my-4
+                text-3xl
+                font-semibold
+                flex flex-row
+                items-center
+              "
             >
-              <div class="uppercase text-3xl font-semibold">Menuju Adzan</div>
               <div
                 class="
                   bg-blue-midnight
@@ -78,67 +82,101 @@
                   border border-solid
                   rounded-2xl
                   font-nunito
+                  w-full
+                  text-6xl
+                  m-2
                 "
               >
-                <span class="text-6xl">{{ formatTime(beforeSholat) }}</span>
+                <div>{{ time }} WIB</div>
               </div>
-              <div class="text-2xl mt-2">
-                Rasulullah shallallahu ‘alaihi wa sallam bersabda, “Dan
-                seseorang dari kalian senantiasa dihitung dalam keadaan shalat
-                selama shalat itu menahannya (dia menanti palaksanaan shalat).
-                Di mana tidak ada yang menghalangi dia untuk kembali kepada
-                keluarganya kecuali shalat itu.” (HR. Bukhari no. 659 dan Muslim
-                no. 649)
-              </div>
-            </div>
-            <div v-else>
-              <VuePlayerVideo
-                src="https://kawaluyaan-rw05.com/amanah/assets/video2.mp4"
-                :autoplay="true"
-                :loop="true"
-                :controls="false"
-                :colors="'#1D2088'"
-              ></VuePlayerVideo>
-            </div>
-            <!-- <div class="text-center" v-if="iqomah < itv && iqomah > 0">
-              {{ formatTime(iqomah) }} Menuju Iqomah
             </div> -->
           </div>
-        </div>
-        <div class="flex flex-col items-center w-screen">
-          <div class="flex items-center font-nunito mt-5">
-            <Time
-              :label="'Subuh'"
-              :time="pray.Fajr"
-              :active="active === 'Fajr'"
-            ></Time>
-            <Time
-              :label="'Dzuhur'"
-              :time="pray.Dhuhr"
-              :active="active === 'Dhuhr'"
-            ></Time>
-            <Time
-              :label="'Ashar'"
-              :time="pray.Asr"
-              :active="active === 'Asr'"
-            ></Time>
-            <Time
-              :label="'Maghrib'"
-              :time="pray.Maghrib"
-              :active="active === 'Maghrib'"
-            ></Time>
-            <Time
-              :label="'Isya'"
-              :time="pray.Isha"
-              :active="active === 'Isha'"
-            ></Time>
+          <div class="mt-4 mx-auto p-4 w-1/2">
+            <div
+              class="
+                main-content
+                text-center text-2xl
+                font-semibold
+                flex flex-row
+                items-center
+              "
+            >
+              <div
+                class="my-4 items-center h-full w-full"
+                v-if="beforeSholat < itv && beforeSholat > 0"
+              >
+                <div class="uppercase text-3xl font-semibold">Menuju Adzan</div>
+                <div
+                  class="
+                    bg-blue-midnight
+                    text-white
+                    border border-solid
+                    rounded-2xl
+                    font-nunito
+                  "
+                >
+                  <span class="text-6xl">{{ formatTime(beforeSholat) }}</span>
+                </div>
+                <div class="text-2xl mt-2">
+                  Rasulullah shallallahu ‘alaihi wa sallam bersabda, “Dan
+                  seseorang dari kalian senantiasa dihitung dalam keadaan shalat
+                  selama shalat itu menahannya (dia menanti palaksanaan shalat).
+                  Di mana tidak ada yang menghalangi dia untuk kembali kepada
+                  keluarganya kecuali shalat itu.” (HR. Bukhari no. 659 dan
+                  Muslim no. 649)
+                </div>
+              </div>
+              <div v-else>
+                <VuePlayerVideo
+                  src="https://kawaluyaan-rw05.com/amanah/assets/video2.mp4"
+                  :autoplay="true"
+                  :loop="true"
+                  :controls="false"
+                  :colors="'#1D2088'"
+                ></VuePlayerVideo>
+              </div>
+              <!-- <div class="text-center" v-if="iqomah < itv && iqomah > 0">
+              {{ formatTime(iqomah) }} Menuju Iqomah
+            </div> -->
+            </div>
+          </div>
+          <div class="flex flex-col items-center w-full relative">
+            <div class="flex items-center font-nunito mt-5 absolute top-0">
+              <Time
+                :label="'Subuh'"
+                :time="pray.Fajr"
+                :active="active === 'Fajr'"
+              ></Time>
+              <Time
+                :label="'Dzuhur'"
+                :time="pray.Dhuhr"
+                :active="active === 'Dhuhr'"
+              ></Time>
+              <Time
+                :label="'Ashar'"
+                :time="pray.Asr"
+                :active="active === 'Asr'"
+              ></Time>
+              <Time
+                :label="'Maghrib'"
+                :time="pray.Maghrib"
+                :active="active === 'Maghrib'"
+              ></Time>
+              <Time
+                :label="'Isya'"
+                :time="pray.Isha"
+                :active="active === 'Isha'"
+              ></Time>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="absolute bottom-4 w-full text-white bg-blue-midnight">
-        <marquee-text :repeat="10" class="text-2xl">
-          - Al Amanah Kawaluyaan Kota Bandung 
-        </marquee-text>
+        <div class="absolute bottom-0 py-1 w-full text-white bg-blue-midnight">
+          <marquee-text :duration="60" class="text-5xl">
+            KHATIB JUMAT USTAD DEDE MISBAHUL AZIS. KHATIB JUMAT USTAD DEDE
+            MISBAHUL AZIS. KHATIB JUMAT USTAD DEDE MISBAHUL AZIS. KHATIB JUMAT
+            USTAD DEDE MISBAHUL AZIS. KHATIB JUMAT USTAD DEDE MISBAHUL AZIS.
+          </marquee-text>
+        </div>
       </div>
     </div>
   </div>
@@ -291,7 +329,7 @@ export default {
       // 10 minute after adzan
       itv: 600,
       playing: true,
-      initiateDate: String
+      initiateDate: String,
     };
   },
   beforeUnmount() {
@@ -329,5 +367,8 @@ export default {
 }
 .main-content {
   min-height: 40vh;
+}
+.side-content {
+  min-height: 82.5vh;
 }
 </style>

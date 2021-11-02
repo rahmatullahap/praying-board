@@ -23,7 +23,9 @@ module.exports = {
       "7xl": "5rem",
     },
     colors: {
-      "white": "#FFFFFF",
+      transparent: "transparent",
+      green: "#019945",
+      white: "#FFFFFF",
       "blue-marine": "#2D405C",
       "blue-black-100": "#181D2A",
       "blue-lapis": "#2B50CB",
