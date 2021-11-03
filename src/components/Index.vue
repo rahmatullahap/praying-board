@@ -1,19 +1,21 @@
 <template>
-  <div class="bg-orange">
-    <div class="grid grid-cols-6 gap-0">
+  <div class="bg-orange h-screen">
+    <div class="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-6 gap-0">
       <div class="col-span-1 bg-green">
         <div
-          class="
-            text-center
-            mt-4
-            mb-1
-            text-3xl
-            font-semibold
-            flex flex-row
-            items-center
-          "
+          class="text-center mt-4 mb-1 font-semibold flex flex-row items-center"
         >
-          <div class="text-white font-nunito w-full text-6xl mx-2">
+          <div
+            class="
+              text-white
+              font-nunito
+              w-full
+              text-xl
+              lg:text-2xl
+              xl:text-6xl
+              mx-2
+            "
+          >
             <div>{{ time }}</div>
           </div>
         </div>
@@ -21,12 +23,15 @@
           class="
             font-nunito
             w-full
-            text-2xl text-white text-center
+            text-base
+            lg:text-xl
+            xl:text-2xl
+            text-white text-center
             font-extrabold
             relative
           "
         >
-          <div class="absolute -bottom-4 w-full">
+          <div class="w-full">
             {{ formatDate(date) }}
           </div>
         </div>
@@ -37,61 +42,44 @@
 
       <div class="relative m-0 col-span-5">
         <!-- <div class="flex flex-col items-center justify-center h-screen relative"> -->
-        <div class="h-screen">
+        <div class="lg:h-screen xl:h-screen">
           <div
-            class="header bg-transparent w-full grid grid-cols-3 gaps-2 pt-4"
+            class="header bg-transparent w-full pt-4"
             style="z-index: 2"
           >
-            <div
-              class="
-                text-center
-                my-4
-                text-3xl
-                font-semibold
-                flex flex-row
-                items-center
-              "
-            >
-              <!-- <div class="font-nunito w-full text-3xl m-2">
-                <div>
-                  {{ formatDate(date) }}
-                </div>
-              </div> -->
-            </div>
             <div>
-              <img class="logo" src="../assets/logo.png" />
+              <img
+                class="logo w-auto h-10 lg:h-20 xl:h-20"
+                src="../assets/logo.png"
+              />
               <div class="font-ubuntu text-center">
-                <h1 class="text-2xl font-extrabold uppercase text-blue-midnight">Masjid Al Amanah</h1>
-                <h2 class="font-semibold text-blue-midnight">Jl. Kawaluyaan Indah I No.11</h2>
+                <h1
+                  class="
+                    text-base
+                    lg:text-xl
+                    xl:text-2xl
+                    font-extrabold
+                    uppercase
+                    text-blue-midnight
+                  "
+                >
+                  Masjid Al Amanah
+                </h1>
+                <h2
+                  class="
+                    text-base
+                    lg:text-xl
+                    xl:text-2xl
+                    font-semibold
+                    text-blue-midnight
+                  "
+                >
+                  Jl. Kawaluyaan Indah I No.11
+                </h2>
               </div>
             </div>
-            <!-- <div
-              class="
-                text-center
-                my-4
-                text-3xl
-                font-semibold
-                flex flex-row
-                items-center
-              "
-            >
-              <div
-                class="
-                  bg-blue-midnight
-                  text-white
-                  border border-solid
-                  rounded-2xl
-                  font-nunito
-                  w-full
-                  text-6xl
-                  m-2
-                "
-              >
-                <div>{{ time }} WIB</div>
-              </div>
-            </div> -->
           </div>
-          <div class="mt-4 mx-auto p-4 w-1/2">
+          <div class="mt-4 mx-auto p-4 w-1/2 hidden lg:block xl:block">
             <div
               class="
                 main-content
@@ -141,7 +129,7 @@
             </div>
           </div>
           <div class="flex flex-col items-center w-full relative">
-            <div class="flex items-center font-nunito mt-5 absolute top-0">
+            <div class="block md:flex lg:flex xl:flex items-center font-nunito mt-5 absolute -top-2">
               <Time
                 :label="'Subuh'"
                 :time="pray.Fajr"
@@ -170,13 +158,13 @@
             </div>
           </div>
         </div>
-        <div class="absolute bottom-0 py-1 w-full text-white bg-blue-midnight">
-          <marquee-text :duration="60" class="text-5xl">
-            KHATIB JUMAT USTAD DEDE MISBAHUL AZIS. KHATIB JUMAT USTAD DEDE
-            MISBAHUL AZIS. KHATIB JUMAT USTAD DEDE MISBAHUL AZIS. KHATIB JUMAT
-            USTAD DEDE MISBAHUL AZIS. KHATIB JUMAT USTAD DEDE MISBAHUL AZIS.
-          </marquee-text>
-        </div>
+      </div>
+      <div class="absolute bottom-0 py-1 w-full text-white bg-blue-midnight">
+        <marquee-text :duration="60" class="text-lg lg:text-2xl xl:text-4xl">
+          KHATIB JUMAT USTAD DEDE MISBAHUL AZIS. KHATIB JUMAT USTAD DEDE
+          MISBAHUL AZIS. KHATIB JUMAT USTAD DEDE MISBAHUL AZIS. KHATIB JUMAT
+          USTAD DEDE MISBAHUL AZIS. KHATIB JUMAT USTAD DEDE MISBAHUL AZIS.
+        </marquee-text>
       </div>
     </div>
   </div>
@@ -320,7 +308,15 @@ export default {
     return {
       interval: null,
       time: null,
-      pray: Object,
+      pray: {
+        Imsak: "00:00",
+        Sunrise: "00:00",
+        Fajr: "00:00",
+        Dhuhr: "00:00",
+        Asr: "00:00",
+        Maghrib: "00:00",
+        Isha: "00:00",
+      },
       location: Object,
       date: String,
       active: null,
@@ -361,14 +357,14 @@ export default {
 
 <style scoped>
 .logo {
-  width: auto;
-  height: 100px;
+  /* width: auto;
+  height: 100px; */
   margin: 0 auto;
 }
-.main-content {
-  min-height: 40vh;
+/* .main-content {
+  height: 50vh;
 }
 .side-content {
-  min-height: 82.5vh;
-}
+  height: 82.5vh;
+} */
 </style>
