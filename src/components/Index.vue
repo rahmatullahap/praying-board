@@ -35,18 +35,24 @@
             {{ formatDate(date) }}
           </div>
         </div>
-        <div class="m-2 side-content">
-          <!-- TODO side content -->
+        <div class="side-content hidden lg:block xl:block">
+          <Side
+            class="mt-3"
+            title="Ceramah Subuh"
+            :content="this.ceramahSubuh"
+          ></Side>
+          <Side
+            class="mt-3"
+            title="Khatib Jum’at"
+            :content="this.ceramahJumat"
+          ></Side>
         </div>
       </div>
 
       <div class="relative m-0 col-span-5">
         <!-- <div class="flex flex-col items-center justify-center h-screen relative"> -->
         <div class="lg:h-screen xl:h-screen">
-          <div
-            class="header bg-transparent w-full pt-4"
-            style="z-index: 2"
-          >
+          <div class="header bg-transparent w-full pt-4" style="z-index: 2">
             <div>
               <img
                 class="logo w-auto h-10 lg:h-20 xl:h-20"
@@ -79,7 +85,20 @@
               </div>
             </div>
           </div>
-          <div class="mt-4 mx-auto p-4 w-1/2 hidden lg:block xl:block">
+          <div
+            class="
+              mt-4
+              mx-auto
+              p-4
+              w-1/3
+              md:w-1/3
+              lg:w-1/2
+              xl:w-1/2
+              hidden
+              lg:block
+              xl:block
+            "
+          >
             <div
               class="
                 main-content
@@ -116,7 +135,7 @@
               </div>
               <div v-else>
                 <VuePlayerVideo
-                  src="https://kawaluyaan-rw05.com/amanah/assets/video2.mp4"
+                  src="https://kawaluyaan-rw05.com/amanah/assets/video3.mp4"
                   :autoplay="true"
                   :loop="true"
                   :controls="false"
@@ -129,7 +148,19 @@
             </div>
           </div>
           <div class="flex flex-col items-center w-full relative">
-            <div class="block md:flex lg:flex xl:flex items-center font-nunito mt-5 absolute -top-2">
+            <div
+              class="
+                block
+                md:flex
+                lg:flex
+                xl:flex
+                items-center
+                font-nunito
+                mt-5
+                absolute
+                -top-2
+              "
+            >
               <Time
                 :label="'Subuh'"
                 :time="pray.Fajr"
@@ -160,10 +191,13 @@
         </div>
       </div>
       <div class="absolute bottom-0 py-1 w-full text-white bg-blue-midnight">
-        <marquee-text :duration="60" class="text-lg lg:text-2xl xl:text-4xl">
-          KHATIB JUMAT USTAD DEDE MISBAHUL AZIS. KHATIB JUMAT USTAD DEDE
-          MISBAHUL AZIS. KHATIB JUMAT USTAD DEDE MISBAHUL AZIS. KHATIB JUMAT
-          USTAD DEDE MISBAHUL AZIS. KHATIB JUMAT USTAD DEDE MISBAHUL AZIS.
+        <marquee-text
+          :duration="40"
+          class="text-lg lg:text-2xl xl:text-4xl uppercase"
+        >
+          &#160; - tetap jaga protokol kesehatan dengan menggunakan masker
+          selama di area Masjid Al Amanah - tetap jaga protokol kesehatan dengan
+          menggunakan masker selama di area Masjid Al Amanah
         </marquee-text>
       </div>
     </div>
@@ -172,17 +206,283 @@
 
 <script>
 import Time from "../components/Time.vue";
+import Side from "../components/Side.vue";
 import axios from "axios";
 import { DateTime } from "luxon";
 import VuePlayerVideo from "vue3-player-video";
 import MarqueeText from "vue-marquee-text-component";
 
 const times = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
+const FAJR_LECTURER = [
+  {
+    date: "01-01-2022",
+    day: "Sabtu",
+    lecturer: "Ustd. Dede Misbahul Aziz",
+  },
+  {
+    date: "02-01-2022",
+    day: "Ahad",
+    lecturer: "Ustd. Dede Misbahul Aziz",
+  },
+  {
+    date: "03-01-2022",
+    day: "Senin",
+    lecturer: "H. Nandana Pawitra",
+  },
+  {
+    date: "04-01-2022",
+    day: "Selasa",
+    lecturer: "Ust. Heru Nugraha",
+  },
+  {
+    date: "05-01-2022",
+    day: "Rabu",
+    lecturer: "H. Asep Kusmayadi",
+  },
+  {
+    date: "06-01-2022",
+    day: "Kamis",
+    lecturer: "H. Syamsu Hudaya",
+  },
+  {
+    date: "07-01-2022",
+    day: "Jum’at",
+    lecturer: "H. Budi Pujianto",
+  },
+  {
+    date: "08-01-2022",
+    day: "Sabtu",
+    lecturer: "Prof. Dr. Engkus Kuswarno",
+  },
+  {
+    date: "09-01-2022",
+    day: "Ahad",
+    lecturer: "Ustd. Lili El Jumali",
+  },
+  {
+    date: "10-01-2022",
+    day: "Senin",
+    lecturer: "Ustd. Dede Misbahul Aziz",
+  },
+  {
+    date: "11-01-2022",
+    day: "Selasa",
+    lecturer: "H. Nur Hasan",
+  },
+  {
+    date: "12-01-2022",
+    day: "Rabu",
+    lecturer: "Muhammad Juanda",
+  },
+  {
+    date: "13-01-2022",
+    day: "Kamis",
+    lecturer: "Rahmat Hidayat",
+  },
+  {
+    date: "14-01-2022",
+    day: "Jum’at",
+    lecturer: "H. Rizal Fakta Basri",
+  },
+  {
+    date: "15-01-2022",
+    day: "Sabtu",
+    lecturer: "AL -Ustadz H. Peto Syarif",
+  },
+  {
+    date: "16-01-2022",
+    day: "Ahad",
+    lecturer: "KH. Athian Ali M. Dai, Lc, MA",
+  },
+  {
+    date: "17-01-2022",
+    day: "Senin",
+    lecturer: "Ustd. Dede Misbahul Aziz",
+  },
+  {
+    date: "18-  01-2022",
+    day: "Selasa",
+    lecturer: "H. Awan Nasution",
+  },
+  {
+    date: "19-01-2022",
+    day: "Rabu",
+    lecturer: "H. Heryadi Santosa",
+  },
+  {
+    date: "20-01-2022",
+    day: "Kamis",
+    lecturer: "H. M. Suhairi Wahab",
+  },
+  {
+    date: "21-01-2022",
+    day: "Jum’at",
+    lecturer: "H. Djusep Sukriatno",
+  },
+  {
+    date: "22-01-2022",
+    day: "Sabtu",
+    lecturer: "Ustd. H. M. Rizal Fadilah, SH",
+  },
+  {
+    date: "23-01-2022",
+    day: "Ahad",
+    lecturer: "Ustd. Dede Misbahul Aziz",
+  },
+  {
+    date: "24-01-2022",
+    day: "Senin",
+    lecturer: "H. Nur Hasan",
+  },
+  {
+    date: "25-01-2022",
+    day: "Selasa",
+    lecturer: "Muhammad Juanda",
+  },
+  {
+    date: "26-01-2022",
+    day: "Rabu",
+    lecturer: "Rahmat Hidayat",
+  },
+  {
+    date: "27-01-2022",
+    day: "Kamis",
+    lecturer: "Ust. Heru Nugraha",
+  },
+  {
+    date: "28-01-2022",
+    day: "Jum’at",
+    lecturer: "H. Kuswandani",
+  },
+  {
+    date: "29-01-2022",
+    day: "Sabtu",
+    lecturer: "Prof. Dr. Engkus Kuswarno",
+  },
+  {
+    date: "30-01-2022",
+    day: "Ahad",
+    lecturer: "H. Kuswandani",
+  },
+  {
+    date: "31-01-2022",
+    day: "Senin",
+    lecturer: "Ir. Rahmatullah Arrizal",
+  },
+];
+const JUMAAH_LECTURER = [
+  {
+    date: "07-01-2022",
+    day: "Jum’at",
+    lecturer: "Al-Ustadz Hafidz Muslim",
+  },
+  {
+    date: "14-01-2022",
+    day: "Jum’at",
+    lecturer: "Al-Ustadz Nurdin Sya'bana",
+  },
+  {
+    date: "21-01-2022",
+    day: "Jum’at",
+    lecturer: "Al-Ustadz  H. Dede Tasmara",
+  },
+  {
+    date: "28-01-2022",
+    day: "Jum’at",
+    lecturer: "Al-Ustadz Lili Jumali",
+  },
+  {
+    date: "04-02-2022",
+    day: "Jum’at",
+    lecturer: "Al-Ustadz  Jajang Juanda S.Ag.",
+  },
+  {
+    date: "11-02-2022",
+    day: "Jum’at",
+    lecturer: "Al-Ustadz  H. Edi Ahmadi, S.Ag.",
+  },
+  {
+    date: "18-02-2022",
+    day: "Jum’at",
+    lecturer: "Al-Ustadz Apad Ruslan",
+  },
+  {
+    date: "25-02-2022",
+    day: "Jum’at",
+    lecturer: "Al-Ustadz  Muhamad Ardin",
+  },
+  {
+    date: "04-03-2022",
+    day: "Jum’at",
+    lecturer: "Al-Ustadz Dede Misbahul Aziz",
+  },
+  {
+    date: "11-03-2022",
+    day: "Jum’at",
+    lecturer: "Ustadz Drs H.Muslim Arief, M.Pd.I",
+  },
+  {
+    date: "18-03-2022",
+    day: "Jum’at",
+    lecturer: "Al-Ustadz  Muhamad Rivan",
+  },
+  {
+    date: "25-03-2022",
+    day: "Jum’at",
+    lecturer: "Al-Ustadz  Drs. H. M. S. Iriyanto",
+  },
+  {
+    date: "01-04-2022",
+    day: "Jum’at",
+    lecturer: "Rahmat Hidayat",
+  },
+  {
+    date: "08-04-2022",
+    day: "Jum’at",
+    lecturer: "H. Syamsu Hudaya",
+  },
+  {
+    date: "15-04-2022",
+    day: "Jum’at",
+    lecturer: "Al-Ustadz  Syahidin",
+  },
+  {
+    date: "22-04-2022",
+    day: "Jum’at",
+    lecturer: "Al-Ustadz  Asep Fathul Rohman",
+  },
+  {
+    date: "29-04-2022",
+    day: "Jum’at",
+    lecturer: "Al-Ustadz  Asep Sofyan N",
+  },
+  {
+    date: "06-05-2022",
+    day: "Jum’at",
+    lecturer: "Al-Ustadz  Mudrikah Daud",
+  },
+  {
+    date: "13-05-2022",
+    day: "Jum’at",
+    lecturer: "Al-Ustadz  Sucipto",
+  },
+  {
+    date: "20-05-2022",
+    day: "Jum’at",
+    lecturer: "",
+  },
+  {
+    date: "27-05-2022",
+    day: "Jum’at",
+    lecturer: "Al-Ustadz Ali Suparman",
+  },
+];
 export default {
   name: "Index",
   props: {},
   components: {
     Time,
+    Side,
     VuePlayerVideo,
     MarqueeText,
   },
@@ -261,6 +561,61 @@ export default {
       }
       return `${m} : ${s}`;
     },
+    getContent: function () {
+      // get dynamic content
+      this.initFajrLecturer();
+      this.initJumaahLecturer();
+    },
+    initFajrLecturer: function () {
+      const now = DateTime.local().toFormat("dd-MM-yyyy");
+      const tomorrow = DateTime.local()
+        .plus({ days: 1 })
+        .toFormat("dd-MM-yyyy");
+      const afterTomorrow = DateTime.local()
+        .plus({ days: 2 })
+        .toFormat("dd-MM-yyyy");
+      this.ceramahSubuh = FAJR_LECTURER.filter((c) => {
+        if (c.date === now || c.date === tomorrow || c.date === afterTomorrow) {
+          return {
+            ...c,
+          };
+        }
+      }).map((c) => {
+        return {
+          ...c,
+          active: c.date === tomorrow,
+        };
+      });
+      console.log(this.ceramahSubuh);
+    },
+    initJumaahLecturer: function () {
+      const now = DateTime.local().set({ weekday: 5 });
+      const next = DateTime.local().set({ weekday: 5 }).plus({ weeks: 1 });
+      const afterNext = DateTime.local().set({ weekday: 5 }).plus({ weeks: 2 });
+      const afterAfterNext = DateTime.local()
+        .set({ weekday: 5 })
+        .plus({ weeks: 3 });
+      this.ceramahJumat = JUMAAH_LECTURER.filter((c) => {
+        if (
+          c.date === now.toFormat("dd-MM-yyyy") ||
+          c.date === next.toFormat("dd-MM-yyyy") ||
+          c.date === afterNext.toFormat("dd-MM-yyyy") ||
+          c.date === afterAfterNext.toFormat("dd-MM-yyyy")
+        ) {
+          return {
+            c,
+          };
+        }
+      }).map((c) => {
+        const dat = DateTime.fromFormat(c.date, "dd-MM-yyyy");
+        const diff = dat.diffNow("days").days;
+        console.log(diff);
+        return {
+          ...c,
+          active: diff < 7 && diff > 0,
+        };
+      });
+    },
     getNearerTime: function () {
       const diffs = [];
       const now = DateTime.local();
@@ -326,6 +681,8 @@ export default {
       itv: 600,
       playing: true,
       initiateDate: String,
+      ceramahSubuh: [],
+      ceramahJumat: [],
     };
   },
   beforeUnmount() {
@@ -335,6 +692,8 @@ export default {
   mounted() {
     this.active = "Fajr";
     this.getPrayTime();
+
+    this.getContent();
 
     this.initiateDate = DateTime.local().toFormat("dd-MM-yyyy");
 
