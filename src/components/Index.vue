@@ -680,7 +680,7 @@ export default {
       // 10 minute after adzan
       itv: 600,
       playing: true,
-      initiateDate: String,
+      initiateDate: Number,
       ceramahSubuh: [],
       ceramahJumat: [],
     };
@@ -695,17 +695,24 @@ export default {
 
     this.getContent();
 
-    this.initiateDate = DateTime.local().toFormat("dd-MM-yyyy");
+    this.initiateDate = 0;
 
     // update the time every second
     this.interval = setInterval(() => {
       const now = DateTime.local();
       this.time = now.setLocale("id").toFormat("HH:mm:ss");
+      this.initiateDate++;
+      const splitTime = this.time.split(":");
 
-      // refresh on every date change
-      if (this.initiateDate !== now.toFormat("dd-MM-yyyy")) {
+      // refresh on every ten minutes
+      if (
+        this.initiateDate > 60 * 10 ||
+        (splitTime[1] === "00" && splitTime[2] === "00")
+      ) {
+        this.getContent();
         this.getPrayTime();
-        this.initiateDate = now.toFormat("dd-MM-yyyy");
+        this.initiateDate = 0;
+        console.log("triggered");
       }
 
       this.getNearerTime();
