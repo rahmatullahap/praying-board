@@ -300,7 +300,7 @@ const FAJR_LECTURER = [
     lecturer: "Ustd. Dede Misbahul Aziz",
   },
   {
-    date: "18-  01-2022",
+    date: "18-01-2022",
     day: "Selasa",
     lecturer: "H. Awan Nasution",
   },
