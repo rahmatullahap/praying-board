@@ -1,16 +1,18 @@
 <template>
-  <Index />
+  <div id="app">
+    <router-view />
+  </div>
 </template>
 
 <script>
-import Index from "./components/Index.vue";
-
 export default {
-  name: "App",
-  components: {
-    Index,
+  name: 'App',
+  mounted() {
+    this.$store.dispatch('login');
   },
 };
 </script>
 
-<style></style>
+<style>
+/* Add your styles here */
+</style>

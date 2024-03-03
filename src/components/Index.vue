@@ -1,7 +1,7 @@
 <template>
   <div class="bg-orange h-screen">
     <div class="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-6 gap-0">
-      <div class="col-span-1 bg-green">
+      <div class="col-span-1 bg-green-cyan">
         <div
           class="text-center mt-4 mb-1 font-semibold flex flex-row items-center"
         >
@@ -80,6 +80,14 @@
                   Muslim no. 649)
                 </div>
               </div>
+              <div class="my-4 items-center h-full w-full" v-else-if="iqomah < itv && iqomah > 0">
+                <div class="uppercase text-3xl font-semibold">Menuju Iqomah</div>
+                <div
+                  class="bg-blue-midnight text-white border border-solid rounded-2xl font-nunito"
+                >
+                  <span class="text-6xl">{{ formatTime(iqomah) }}</span>
+                </div>
+              </div>
               <div v-else>
                 <div
                   class="flex justify-center relative"
@@ -108,14 +116,11 @@
                   ></iframe>
                 </div>
               </div>
-              <div class="text-center" v-if="iqomah < itv && iqomah > 0">
-                {{ formatTime(iqomah) }} Menuju Iqomah
-              </div>
             </div>
           </div>
           <div class="flex flex-col items-center w-full relative">
             <div
-              class="block md:flex lg:flex xl:flex items-center font-nunito mt-5 absolute -top-2"
+              class="block md:flex lg:flex xl:flex items-center font-nunito mt-1 absolute -top-2"
             >
               <Time
                 :label="'Subuh'"
@@ -266,7 +271,7 @@ export default {
 
       let { data: fajr_data } = await supabase
         .from('penceramah_subuh')
-        .select('*')
+        .select('*').order('id')
 
       this.ceramahSubuh = fajr_data.filter((c) => {
         if (c.date === now || c.date === tomorrow || c.date === afterTomorrow) {
