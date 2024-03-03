@@ -81,8 +81,31 @@
                 </div>
               </div>
               <div v-else>
-                <div class="flex justify-center relative" style="width: 750px; height: 421px;">
-                  <iframe src="https://www.youtube.com/embed/moQtMet7F7w?autoplay=1&mute=1" title="Youtube Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="overflow:hidden;overflow-x:hidden;overflow-y:hidden;height:100%;width:100%;position:absolute;top:0px;left:0px;right:0px;bottom:0px" height="100%" width="100%"></iframe>
+                <div
+                  class="flex justify-center relative"
+                  style="width: 750px; height: 421px"
+                >
+                  <iframe
+                    src="https://www.youtube.com/embed/moQtMet7F7w?autoplay=1&mute=1"
+                    title="Youtube Video"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                    style="
+                      overflow: hidden;
+                      overflow-x: hidden;
+                      overflow-y: hidden;
+                      height: 100%;
+                      width: 100%;
+                      position: absolute;
+                      top: 0px;
+                      left: 0px;
+                      right: 0px;
+                      bottom: 0px;
+                    "
+                    height="100%"
+                    width="100%"
+                  ></iframe>
                 </div>
               </div>
               <div class="text-center" v-if="iqomah < itv && iqomah > 0">
@@ -128,9 +151,7 @@
           :duration="40"
           class="text-lg lg:text-2xl xl:text-4xl uppercase"
         >
-          &#160; - tetap jaga protokol kesehatan dengan menggunakan masker
-          selama di area Masjid Al Amanah - tetap jaga protokol kesehatan dengan
-          menggunakan masker selama di area Masjid Al Amanah
+          {{runningText.join('&#160; - ')}}
         </marquee-text>
       </div>
     </div>
@@ -143,273 +164,14 @@ import Side from "../components/Side.vue";
 import axios from "axios";
 import { DateTime } from "luxon";
 import MarqueeText from "vue-marquee-text-component";
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = 'https://ueoydyhdhwahrlgjsnxd.supabase.co';
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlb3lkeWhkaHdhaHJsZ2pzbnhkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwOTQ2NDEzNSwiZXhwIjoyMDI1MDQwMTM1fQ.2RxH7ZHE9pFOBicJNZuJ9gUzyXobmPYX72SqaDfspvw"
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const times = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
 const days = ["Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu", "Ahad"];
-const FAJR_LECTURER = [
-  {
-    date: "01-03-2024",
-    day: "Sabtu",
-    lecturer: "Ustd. Dede Misbahul Aziz",
-  },
-  {
-    date: "02-03-2024",
-    day: "Ahad",
-    lecturer: "Ustd. Dede Misbahul Aziz",
-  },
-  {
-    date: "03-03-2024",
-    day: "Senin",
-    lecturer: "H. Nandana Pawitra",
-  },
-  {
-    date: "04-03-2024",
-    day: "Selasa",
-    lecturer: "Ust. Heru Nugraha",
-  },
-  {
-    date: "05-03-2024",
-    day: "Rabu",
-    lecturer: "H. Asep Kusmayadi",
-  },
-  {
-    date: "06-03-2024",
-    day: "Kamis",
-    lecturer: "H. Syamsu Hudaya",
-  },
-  {
-    date: "07-03-2024",
-    day: "Jum’at",
-    lecturer: "H. Budi Pujianto",
-  },
-  {
-    date: "08-03-2024",
-    day: "Sabtu",
-    lecturer: "Prof. Dr. Engkus Kuswarno",
-  },
-  {
-    date: "09-03-2024",
-    day: "Ahad",
-    lecturer: "Ustd. Lili El Jumali",
-  },
-  {
-    date: "10-03-2024",
-    day: "Senin",
-    lecturer: "Ustd. Dede Misbahul Aziz",
-  },
-  {
-    date: "11-03-2024",
-    day: "Selasa",
-    lecturer: "H. Nur Hasan",
-  },
-  {
-    date: "12-03-2024",
-    day: "Rabu",
-    lecturer: "Muhammad Juanda",
-  },
-  {
-    date: "13-03-2024",
-    day: "Kamis",
-    lecturer: "Rahmat Hidayat",
-  },
-  {
-    date: "14-03-2024",
-    day: "Jum’at",
-    lecturer: "H. Rizal Fakta Basri",
-  },
-  {
-    date: "15-03-2024",
-    day: "Sabtu",
-    lecturer: "AL -Ustadz H. Peto Syarif",
-  },
-  {
-    date: "16-03-2024",
-    day: "Ahad",
-    lecturer: "KH. Athian Ali M. Dai, Lc, MA",
-  },
-  {
-    date: "17-03-2024",
-    day: "Senin",
-    lecturer: "Ustd. Dede Misbahul Aziz",
-  },
-  {
-    date: "18-03-2024",
-    day: "Selasa",
-    lecturer: "H. Awan Nasution",
-  },
-  {
-    date: "19-03-2024",
-    day: "Rabu",
-    lecturer: "H. Heryadi Santosa",
-  },
-  {
-    date: "20-03-2024",
-    day: "Kamis",
-    lecturer: "H. M. Suhairi Wahab",
-  },
-  {
-    date: "21-03-2024",
-    day: "Jum’at",
-    lecturer: "H. Djusep Sukriatno",
-  },
-  {
-    date: "22-03-2024",
-    day: "Sabtu",
-    lecturer: "Ustd. H. M. Rizal Fadilah, SH",
-  },
-  {
-    date: "23-03-2024",
-    day: "Ahad",
-    lecturer: "Ustd. Dede Misbahul Aziz",
-  },
-  {
-    date: "24-03-2024",
-    day: "Senin",
-    lecturer: "H. Nur Hasan",
-  },
-  {
-    date: "25-03-2024",
-    day: "Selasa",
-    lecturer: "Muhammad Juanda",
-  },
-  {
-    date: "26-03-2024",
-    day: "Rabu",
-    lecturer: "Rahmat Hidayat",
-  },
-  {
-    date: "27-03-2024",
-    day: "Kamis",
-    lecturer: "Ust. Heru Nugraha",
-  },
-  {
-    date: "28-03-2024",
-    day: "Jum’at",
-    lecturer: "H. Kuswandani",
-  },
-  {
-    date: "29-03-2024",
-    day: "Sabtu",
-    lecturer: "Prof. Dr. Engkus Kuswarno",
-  },
-  {
-    date: "30-03-2024",
-    day: "Ahad",
-    lecturer: "H. Kuswandani",
-  },
-  {
-    date: "31-03-2024",
-    day: "Senin",
-    lecturer: "Ir. Rahmatullah Arrizal",
-  },
-];
-const JUMAAH_LECTURER = [
-  {
-    date: "08-03-2024",
-    day: "Jum’at",
-    lecturer: "Al-Ustadz Hafidz Muslim",
-  },
-  {
-    date: "15-05-2024",
-    day: "Jum’at",
-    lecturer: "Al-Ustadz Nurdin Sya'bana",
-  },
-  {
-    date: "21-01-2024",
-    day: "Jum’at",
-    lecturer: "Al-Ustadz  H. Dede Tasmara",
-  },
-  {
-    date: "28-01-2024",
-    day: "Jum’at",
-    lecturer: "Al-Ustadz Lili Jumali",
-  },
-  {
-    date: "04-02-2024",
-    day: "Jum’at",
-    lecturer: "Al-Ustadz  Jajang Juanda S.Ag.",
-  },
-  {
-    date: "11-02-2024",
-    day: "Jum’at",
-    lecturer: "Al-Ustadz  H. Edi Ahmadi, S.Ag.",
-  },
-  {
-    date: "18-02-2024",
-    day: "Jum’at",
-    lecturer: "Al-Ustadz Apad Ruslan",
-  },
-  {
-    date: "25-02-2024",
-    day: "Jum’at",
-    lecturer: "Al-Ustadz  Muhamad Ardin",
-  },
-  {
-    date: "04-03-2024",
-    day: "Jum’at",
-    lecturer: "Al-Ustadz Dede Misbahul Aziz",
-  },
-  {
-    date: "11-03-2024",
-    day: "Jum’at",
-    lecturer: "Ustadz Drs H.Muslim Arief, M.Pd.I",
-  },
-  {
-    date: "18-03-2024",
-    day: "Jum’at",
-    lecturer: "Al-Ustadz  Muhamad Rivan",
-  },
-  {
-    date: "25-03-2024",
-    day: "Jum’at",
-    lecturer: "Al-Ustadz  Drs. H. M. S. Iriyanto",
-  },
-  {
-    date: "01-04-2024",
-    day: "Jum’at",
-    lecturer: "Rahmat Hidayat",
-  },
-  {
-    date: "08-04-2024",
-    day: "Jum’at",
-    lecturer: "H. Syamsu Hudaya",
-  },
-  {
-    date: "15-04-2024",
-    day: "Jum’at",
-    lecturer: "Al-Ustadz  Syahidin",
-  },
-  {
-    date: "22-04-2024",
-    day: "Jum’at",
-    lecturer: "Al-Ustadz  Asep Fathul Rohman",
-  },
-  {
-    date: "29-04-2024",
-    day: "Jum’at",
-    lecturer: "Al-Ustadz  Asep Sofyan N",
-  },
-  {
-    date: "06-05-2024",
-    day: "Jum’at",
-    lecturer: "Al-Ustadz  Mudrikah Daud",
-  },
-  {
-    date: "13-05-2024",
-    day: "Jum’at",
-    lecturer: "Al-Ustadz  Sucipto",
-  },
-  {
-    date: "20-05-2024",
-    day: "Jum’at",
-    lecturer: "",
-  },
-  {
-    date: "27-05-2024",
-    day: "Jum’at",
-    lecturer: "Al-Ustadz Ali Suparman",
-  },
-];
 export default {
   name: "Index",
   props: {},
@@ -419,20 +181,7 @@ export default {
     MarqueeText,
   },
   methods: {
-    getPrayTime: function () {
-      // for testing
-      // this.pray = {
-      //   Imsak: "04:01",
-      //   Sunrise: "05:19",
-      //   Fajr: "04:11",
-      //   Dhuhr: "11:33",
-      //   Asr: "14:48",
-      //   Maghrib: "15:25",
-      //   Isha: "15:30",
-      // };
-      // const url =
-      //   "https://api.pray.zone/v2/times/today.json?school=3&juristic=1&longitude=106.8597248&latitude=-6.1702144&elevation=6";
-
+    getPrayTime: async function () {
       const now = DateTime.local();
 
       let day = now.get("day");
@@ -441,20 +190,23 @@ export default {
         dd = "0" + dd;
       }
 
-      // const url = `https://api.myquran.com/v2/sholat/jadwal/1219/${now.get(
-      //   "year"
-      // )}/${now.get("month")}/${dd}`;
+      let { data: pray_data } = await supabase
+        .from('pray_time')
+        .select('id, time, exact_time').order("id")
+
+      pray_data = pray_data.map((p) => {
+        const time = p.exact_time ? p.exact_time.split(":").splice(0,2).join(":") : null
+        return {
+          ...p,
+          exact_time: time
+        }
+      })
 
       const url = `https://api.myquran.com/v2/sholat/jadwal/1219/${now.get(
         "year"
       )}-${now.get("month")}-${dd}`;
 
       axios.get(url).then((response) => {
-        // const result = response.data.results;
-        // const datetime = result.datetime[0];
-        // this.pray = datetime.times;
-        // this.location = result.location;
-
         const today = now.toJSDate();
         this.date = today;
 
@@ -462,14 +214,14 @@ export default {
         this.location = result.lokasi;
         const j = result.jadwal;
         this.pray = {
-          Imsak: j.imsak,
-          Sunrise: j.terbit,
-          Fajr: j.subuh,
-          Dhuhr: j.dzuhur,
-          Asr: j.ashar,
+          Imsak: pray_data[0].exact_time || j.imsak,
+          Sunrise: pray_data[1].exact_time || j.terbit,
+          Fajr: pray_data[2].exact_time || j.subuh,
+          Dhuhr: pray_data[3].exact_time || j.dzuhur,
+          Asr: pray_data[4].exact_time || j.ashar,
           Sunset: "00:00",
-          Maghrib: j.maghrib,
-          Isha: j.isya,
+          Maghrib: pray_data[5].exact_time || j.maghrib,
+          Isha: pray_data[6].exact_time || j.isya,
           Midnight: "23:59",
         };
       });
@@ -497,12 +249,13 @@ export default {
       }
       return `${m} : ${s}`;
     },
-    getContent: function () {
+    getContent: async function () {
       // get dynamic content
-      this.initFajrLecturer();
-      this.initJumaahLecturer();
+      await this.initFajrLecturer();
+      await this.initJumaahLecturer();
+      await this.initRunningText();
     },
-    initFajrLecturer: function () {
+    initFajrLecturer: async function () {
       const now = DateTime.local().toFormat("dd-MM-yyyy");
       const tomorrow = DateTime.local()
         .plus({ days: 1 })
@@ -510,7 +263,12 @@ export default {
       const afterTomorrow = DateTime.local()
         .plus({ days: 2 })
         .toFormat("dd-MM-yyyy");
-      this.ceramahSubuh = FAJR_LECTURER.filter((c) => {
+
+      let { data: fajr_data } = await supabase
+        .from('penceramah_subuh')
+        .select('*')
+
+      this.ceramahSubuh = fajr_data.filter((c) => {
         if (c.date === now || c.date === tomorrow || c.date === afterTomorrow) {
           return {
             ...c,
@@ -526,14 +284,19 @@ export default {
       });
       // console.log(this.ceramahSubuh);
     },
-    initJumaahLecturer: function () {
+    initJumaahLecturer: async function () {
       const now = DateTime.local().set({ weekday: 5 });
       const next = DateTime.local().set({ weekday: 5 }).plus({ weeks: 1 });
       const afterNext = DateTime.local().set({ weekday: 5 }).plus({ weeks: 2 });
       const afterAfterNext = DateTime.local()
         .set({ weekday: 5 })
         .plus({ weeks: 3 });
-      this.ceramahJumat = JUMAAH_LECTURER.filter((c) => {
+
+      let { data: jumat_data } = await supabase
+        .from('penceramah_jumat')
+        .select('*')
+
+      this.ceramahJumat = jumat_data.filter((c) => {
         if (
           c.date === now.toFormat("dd-MM-yyyy") ||
           c.date === next.toFormat("dd-MM-yyyy") ||
@@ -597,6 +360,19 @@ export default {
         this.iqomah = diff;
       }
     },
+    initRunningText: async function () {
+      let { data } = await supabase
+        .from('information')
+        .select('*').eq('key', 'running_text')
+
+      let { data: hadits } = await supabase
+        .from('hadits')
+        .select('*')
+
+      const runningtext = ["", ...data.map((d) => d.detail), ...hadits.map((h) => h.hadits)];
+      this.runningText = runningtext;
+
+    },
   },
   data() {
     return {
@@ -622,6 +398,7 @@ export default {
       initiateDate: Number,
       ceramahSubuh: [],
       ceramahJumat: [],
+      runningText: [],
     };
   },
   beforeUnmount() {
