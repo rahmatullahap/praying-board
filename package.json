@@ -13,7 +13,8 @@
     "luxon": "^2.0.2",
     "vue": "^3.0.0",
     "vue-marquee-text-component": "^2.0.1",
-    "vue3-player-video": "^1.2.5"
+    "vue3-player-video": "^1.2.5",
+    "vue3-youtube": "^0.1.9"
   },
   "devDependencies": {
     "@types/luxon": "^2.0.5",
@@ -42,7 +43,7 @@
     },
     "rules": {}
   },
-  "engines" : { 
-    "node" : ">=18.17.0 <20.0.0"
+  "engines": {
+    "node": ">=18.17.0 <20.0.0"
   }
 }

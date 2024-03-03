@@ -6,30 +6,13 @@
           class="text-center mt-4 mb-1 font-semibold flex flex-row items-center"
         >
           <div
-            class="
-              text-white
-              font-nunito
-              w-full
-              text-xl
-              lg:text-2xl
-              xl:text-6xl
-              mx-2
-            "
+            class="text-white font-nunito w-full text-xl lg:text-2xl xl:text-6xl mx-2"
           >
             <div>{{ time }}</div>
           </div>
         </div>
         <div
-          class="
-            font-nunito
-            w-full
-            text-base
-            lg:text-xl
-            xl:text-2xl
-            text-white text-center
-            font-extrabold
-            relative
-          "
+          class="font-nunito w-full text-base lg:text-xl xl:text-2xl text-white text-center font-extrabold relative"
         >
           <div class="w-full">
             {{ formatDate(date) }}
@@ -60,25 +43,12 @@
               />
               <div class="font-ubuntu text-center">
                 <h1
-                  class="
-                    text-base
-                    lg:text-xl
-                    xl:text-2xl
-                    font-extrabold
-                    uppercase
-                    text-blue-midnight
-                  "
+                  class="text-base lg:text-xl xl:text-2xl font-extrabold uppercase text-blue-midnight"
                 >
                   Masjid Al Amanah
                 </h1>
                 <h2
-                  class="
-                    text-base
-                    lg:text-xl
-                    xl:text-2xl
-                    font-semibold
-                    text-blue-midnight
-                  "
+                  class="text-base lg:text-xl xl:text-2xl font-semibold text-blue-midnight"
                 >
                   Jl. Kawaluyaan Indah I No.11
                 </h2>
@@ -86,27 +56,10 @@
             </div>
           </div>
           <div
-            class="
-              mt-4
-              mx-auto
-              p-4
-              w-1/3
-              md:w-1/3
-              lg:w-1/2
-              xl:w-1/2
-              hidden
-              lg:block
-              xl:block
-            "
+            class="mt-4 mx-auto p-4 w-1/3 md:w-1/3 lg:w-1/2 xl:w-1/2 hidden lg:block xl:block"
           >
             <div
-              class="
-                main-content
-                text-center text-2xl
-                font-semibold
-                flex flex-row
-                items-center
-              "
+              class="main-content text-center text-2xl font-semibold flex flex-row items-center"
             >
               <div
                 class="my-4 items-center h-full w-full"
@@ -114,13 +67,7 @@
               >
                 <div class="uppercase text-3xl font-semibold">Menuju Adzan</div>
                 <div
-                  class="
-                    bg-blue-midnight
-                    text-white
-                    border border-solid
-                    rounded-2xl
-                    font-nunito
-                  "
+                  class="bg-blue-midnight text-white border border-solid rounded-2xl font-nunito"
                 >
                   <span class="text-6xl">{{ formatTime(beforeSholat) }}</span>
                 </div>
@@ -134,32 +81,18 @@
                 </div>
               </div>
               <div v-else>
-                <!-- <VuePlayerVideo
-                  src="https://kawaluyaan-rw05.com/amanah/assets/video3.mp4"
-                  :autoplay="true"
-                  :loop="true"
-                  :controls="false"
-                  :colors="'#1D2088'"
-                ></VuePlayerVideo> -->
+                <div class="flex justify-center relative" style="width: 750px; height: 421px;">
+                  <iframe src="https://www.youtube.com/embed/moQtMet7F7w?autoplay=1&mute=1" title="Youtube Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="overflow:hidden;overflow-x:hidden;overflow-y:hidden;height:100%;width:100%;position:absolute;top:0px;left:0px;right:0px;bottom:0px" height="100%" width="100%"></iframe>
+                </div>
               </div>
-              <!-- <div class="text-center" v-if="iqomah < itv && iqomah > 0">
-              {{ formatTime(iqomah) }} Menuju Iqomah
-            </div> -->
+              <div class="text-center" v-if="iqomah < itv && iqomah > 0">
+                {{ formatTime(iqomah) }} Menuju Iqomah
+              </div>
             </div>
           </div>
           <div class="flex flex-col items-center w-full relative">
             <div
-              class="
-                block
-                md:flex
-                lg:flex
-                xl:flex
-                items-center
-                font-nunito
-                mt-5
-                absolute
-                -top-2
-              "
+              class="block md:flex lg:flex xl:flex items-center font-nunito mt-5 absolute -top-2"
             >
               <Time
                 :label="'Subuh'"
@@ -209,7 +142,6 @@ import Time from "../components/Time.vue";
 import Side from "../components/Side.vue";
 import axios from "axios";
 import { DateTime } from "luxon";
-// import VuePlayerVideo from "vue3-player-video";
 import MarqueeText from "vue-marquee-text-component";
 
 const times = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
@@ -484,7 +416,6 @@ export default {
   components: {
     Time,
     Side,
-    // VuePlayerVideo,
     MarqueeText,
   },
   methods: {
@@ -586,7 +517,7 @@ export default {
           };
         }
       }).map((c) => {
-        const newDay = DateTime.fromFormat(c.date, 'dd-MM-yyyy');
+        const newDay = DateTime.fromFormat(c.date, "dd-MM-yyyy");
         return {
           ...c,
           day: days[newDay.weekday - 1],
@@ -646,7 +577,6 @@ export default {
       } else {
         this.active = diffs[0].time;
         this.beforeSholat = diffs[0].diff;
-        console.log(this.beforeSholat)
       }
 
       let idx = times.findIndex((t) => t === this.active) || 0;
