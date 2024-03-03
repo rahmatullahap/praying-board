@@ -627,11 +627,12 @@ export default {
       const diffs = [];
       const now = DateTime.local();
       for (const i in this.pray) {
-        const time = this.pray[i];
-        const hour = time.split(":")[0];
-        const minute = time.split(":")[1];
+        const time = this.pray[i].split(":");
+        const hour = time[0];
+        const minute = time[1];
         const date = now.set({ hour, minute, second: 0 });
-        const diff = Math.ceil(date.diffNow("seconds").seconds);
+        const dateNow = DateTime.local();
+        const diff = Math.ceil(date.diff(dateNow, "seconds").seconds);
         if (diff >= 0 && times.includes(i)) {
           diffs.push({
             time: i,
@@ -645,6 +646,7 @@ export default {
       } else {
         this.active = diffs[0].time;
         this.beforeSholat = diffs[0].diff;
+        console.log(this.beforeSholat)
       }
 
       let idx = times.findIndex((t) => t === this.active) || 0;
