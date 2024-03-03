@@ -134,13 +134,13 @@
                 </div>
               </div>
               <div v-else>
-                <VuePlayerVideo
+                <!-- <VuePlayerVideo
                   src="https://kawaluyaan-rw05.com/amanah/assets/video3.mp4"
                   :autoplay="true"
                   :loop="true"
                   :controls="false"
                   :colors="'#1D2088'"
-                ></VuePlayerVideo>
+                ></VuePlayerVideo> -->
               </div>
               <!-- <div class="text-center" v-if="iqomah < itv && iqomah > 0">
               {{ formatTime(iqomah) }} Menuju Iqomah
@@ -209,270 +209,271 @@ import Time from "../components/Time.vue";
 import Side from "../components/Side.vue";
 import axios from "axios";
 import { DateTime } from "luxon";
-import VuePlayerVideo from "vue3-player-video";
+// import VuePlayerVideo from "vue3-player-video";
 import MarqueeText from "vue-marquee-text-component";
 
 const times = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
+const days = ["Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu", "Ahad"];
 const FAJR_LECTURER = [
   {
-    date: "01-01-2022",
+    date: "01-03-2024",
     day: "Sabtu",
     lecturer: "Ustd. Dede Misbahul Aziz",
   },
   {
-    date: "02-01-2022",
+    date: "02-03-2024",
     day: "Ahad",
     lecturer: "Ustd. Dede Misbahul Aziz",
   },
   {
-    date: "03-01-2022",
+    date: "03-03-2024",
     day: "Senin",
     lecturer: "H. Nandana Pawitra",
   },
   {
-    date: "04-01-2022",
+    date: "04-03-2024",
     day: "Selasa",
     lecturer: "Ust. Heru Nugraha",
   },
   {
-    date: "05-01-2022",
+    date: "05-03-2024",
     day: "Rabu",
     lecturer: "H. Asep Kusmayadi",
   },
   {
-    date: "06-01-2022",
+    date: "06-03-2024",
     day: "Kamis",
     lecturer: "H. Syamsu Hudaya",
   },
   {
-    date: "07-01-2022",
+    date: "07-03-2024",
     day: "Jum’at",
     lecturer: "H. Budi Pujianto",
   },
   {
-    date: "08-01-2022",
+    date: "08-03-2024",
     day: "Sabtu",
     lecturer: "Prof. Dr. Engkus Kuswarno",
   },
   {
-    date: "09-01-2022",
+    date: "09-03-2024",
     day: "Ahad",
     lecturer: "Ustd. Lili El Jumali",
   },
   {
-    date: "10-01-2022",
+    date: "10-03-2024",
     day: "Senin",
     lecturer: "Ustd. Dede Misbahul Aziz",
   },
   {
-    date: "11-01-2022",
+    date: "11-03-2024",
     day: "Selasa",
     lecturer: "H. Nur Hasan",
   },
   {
-    date: "12-01-2022",
+    date: "12-03-2024",
     day: "Rabu",
     lecturer: "Muhammad Juanda",
   },
   {
-    date: "13-01-2022",
+    date: "13-03-2024",
     day: "Kamis",
     lecturer: "Rahmat Hidayat",
   },
   {
-    date: "14-01-2022",
+    date: "14-03-2024",
     day: "Jum’at",
     lecturer: "H. Rizal Fakta Basri",
   },
   {
-    date: "15-01-2022",
+    date: "15-03-2024",
     day: "Sabtu",
     lecturer: "AL -Ustadz H. Peto Syarif",
   },
   {
-    date: "16-01-2022",
+    date: "16-03-2024",
     day: "Ahad",
     lecturer: "KH. Athian Ali M. Dai, Lc, MA",
   },
   {
-    date: "17-01-2022",
+    date: "17-03-2024",
     day: "Senin",
     lecturer: "Ustd. Dede Misbahul Aziz",
   },
   {
-    date: "18-01-2022",
+    date: "18-03-2024",
     day: "Selasa",
     lecturer: "H. Awan Nasution",
   },
   {
-    date: "19-01-2022",
+    date: "19-03-2024",
     day: "Rabu",
     lecturer: "H. Heryadi Santosa",
   },
   {
-    date: "20-01-2022",
+    date: "20-03-2024",
     day: "Kamis",
     lecturer: "H. M. Suhairi Wahab",
   },
   {
-    date: "21-01-2022",
+    date: "21-03-2024",
     day: "Jum’at",
     lecturer: "H. Djusep Sukriatno",
   },
   {
-    date: "22-01-2022",
+    date: "22-03-2024",
     day: "Sabtu",
     lecturer: "Ustd. H. M. Rizal Fadilah, SH",
   },
   {
-    date: "23-01-2022",
+    date: "23-03-2024",
     day: "Ahad",
     lecturer: "Ustd. Dede Misbahul Aziz",
   },
   {
-    date: "24-01-2022",
+    date: "24-03-2024",
     day: "Senin",
     lecturer: "H. Nur Hasan",
   },
   {
-    date: "25-01-2022",
+    date: "25-03-2024",
     day: "Selasa",
     lecturer: "Muhammad Juanda",
   },
   {
-    date: "26-01-2022",
+    date: "26-03-2024",
     day: "Rabu",
     lecturer: "Rahmat Hidayat",
   },
   {
-    date: "27-01-2022",
+    date: "27-03-2024",
     day: "Kamis",
     lecturer: "Ust. Heru Nugraha",
   },
   {
-    date: "28-01-2022",
+    date: "28-03-2024",
     day: "Jum’at",
     lecturer: "H. Kuswandani",
   },
   {
-    date: "29-01-2022",
+    date: "29-03-2024",
     day: "Sabtu",
     lecturer: "Prof. Dr. Engkus Kuswarno",
   },
   {
-    date: "30-01-2022",
+    date: "30-03-2024",
     day: "Ahad",
     lecturer: "H. Kuswandani",
   },
   {
-    date: "31-01-2022",
+    date: "31-03-2024",
     day: "Senin",
     lecturer: "Ir. Rahmatullah Arrizal",
   },
 ];
 const JUMAAH_LECTURER = [
   {
-    date: "07-01-2022",
+    date: "08-03-2024",
     day: "Jum’at",
     lecturer: "Al-Ustadz Hafidz Muslim",
   },
   {
-    date: "14-01-2022",
+    date: "15-05-2024",
     day: "Jum’at",
     lecturer: "Al-Ustadz Nurdin Sya'bana",
   },
   {
-    date: "21-01-2022",
+    date: "21-01-2024",
     day: "Jum’at",
     lecturer: "Al-Ustadz  H. Dede Tasmara",
   },
   {
-    date: "28-01-2022",
+    date: "28-01-2024",
     day: "Jum’at",
     lecturer: "Al-Ustadz Lili Jumali",
   },
   {
-    date: "04-02-2022",
+    date: "04-02-2024",
     day: "Jum’at",
     lecturer: "Al-Ustadz  Jajang Juanda S.Ag.",
   },
   {
-    date: "11-02-2022",
+    date: "11-02-2024",
     day: "Jum’at",
     lecturer: "Al-Ustadz  H. Edi Ahmadi, S.Ag.",
   },
   {
-    date: "18-02-2022",
+    date: "18-02-2024",
     day: "Jum’at",
     lecturer: "Al-Ustadz Apad Ruslan",
   },
   {
-    date: "25-02-2022",
+    date: "25-02-2024",
     day: "Jum’at",
     lecturer: "Al-Ustadz  Muhamad Ardin",
   },
   {
-    date: "04-03-2022",
+    date: "04-03-2024",
     day: "Jum’at",
     lecturer: "Al-Ustadz Dede Misbahul Aziz",
   },
   {
-    date: "11-03-2022",
+    date: "11-03-2024",
     day: "Jum’at",
     lecturer: "Ustadz Drs H.Muslim Arief, M.Pd.I",
   },
   {
-    date: "18-03-2022",
+    date: "18-03-2024",
     day: "Jum’at",
     lecturer: "Al-Ustadz  Muhamad Rivan",
   },
   {
-    date: "25-03-2022",
+    date: "25-03-2024",
     day: "Jum’at",
     lecturer: "Al-Ustadz  Drs. H. M. S. Iriyanto",
   },
   {
-    date: "01-04-2022",
+    date: "01-04-2024",
     day: "Jum’at",
     lecturer: "Rahmat Hidayat",
   },
   {
-    date: "08-04-2022",
+    date: "08-04-2024",
     day: "Jum’at",
     lecturer: "H. Syamsu Hudaya",
   },
   {
-    date: "15-04-2022",
+    date: "15-04-2024",
     day: "Jum’at",
     lecturer: "Al-Ustadz  Syahidin",
   },
   {
-    date: "22-04-2022",
+    date: "22-04-2024",
     day: "Jum’at",
     lecturer: "Al-Ustadz  Asep Fathul Rohman",
   },
   {
-    date: "29-04-2022",
+    date: "29-04-2024",
     day: "Jum’at",
     lecturer: "Al-Ustadz  Asep Sofyan N",
   },
   {
-    date: "06-05-2022",
+    date: "06-05-2024",
     day: "Jum’at",
     lecturer: "Al-Ustadz  Mudrikah Daud",
   },
   {
-    date: "13-05-2022",
+    date: "13-05-2024",
     day: "Jum’at",
     lecturer: "Al-Ustadz  Sucipto",
   },
   {
-    date: "20-05-2022",
+    date: "20-05-2024",
     day: "Jum’at",
     lecturer: "",
   },
   {
-    date: "27-05-2022",
+    date: "27-05-2024",
     day: "Jum’at",
     lecturer: "Al-Ustadz Ali Suparman",
   },
@@ -483,7 +484,7 @@ export default {
   components: {
     Time,
     Side,
-    VuePlayerVideo,
+    // VuePlayerVideo,
     MarqueeText,
   },
   methods: {
@@ -509,9 +510,13 @@ export default {
         dd = "0" + dd;
       }
 
-      const url = `https://api.myquran.com/v1/sholat/jadwal/1219/${now.get(
+      // const url = `https://api.myquran.com/v2/sholat/jadwal/1219/${now.get(
+      //   "year"
+      // )}/${now.get("month")}/${dd}`;
+
+      const url = `https://api.myquran.com/v2/sholat/jadwal/1219/${now.get(
         "year"
-      )}/${now.get("month")}/${dd}`;
+      )}-${now.get("month")}-${dd}`;
 
       axios.get(url).then((response) => {
         // const result = response.data.results;
@@ -581,12 +586,14 @@ export default {
           };
         }
       }).map((c) => {
+        const newDay = DateTime.fromFormat(c.date, 'dd-MM-yyyy');
         return {
           ...c,
+          day: days[newDay.weekday - 1],
           active: c.date === tomorrow,
         };
       });
-      console.log(this.ceramahSubuh);
+      // console.log(this.ceramahSubuh);
     },
     initJumaahLecturer: function () {
       const now = DateTime.local().set({ weekday: 5 });
