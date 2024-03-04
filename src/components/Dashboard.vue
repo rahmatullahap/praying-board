@@ -8,7 +8,7 @@
       Logout
     </button>
   </div>
-  <div class="min-h-screen flex flex-col items-center justify-center p-10">
+  <div class="flex flex-col items-center justify-center p-10">
     <div class="bg-white p-8 rounded shadow-md mb-4 w-full mt-8 flex gap-4">
       <div class="w-full">
         <h2 class="text-lg font-bold mb-4">Waktu Sholat</h2>

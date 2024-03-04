@@ -1,20 +1,20 @@
 <template>
-  <div class="bg-wrap">
+  <div class="bg-wrap h-full">
     <img class="background-image" src="../assets/bg.jpg" alt="" />
-    <div class="h-screen content">
-      <div class="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-6 gap-0">
+    <div class="content h-full">
+      <div class="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-6 gap-0 h-full">
         <div class="col-span-1 bg-green-cyan">
           <div
             class="text-center mt-4 mb-1 font-semibold flex flex-row items-center"
           >
             <div
-              class="text-white font-nunito w-full text-xl lg:text-2xl xl:text-6xl mx-2"
+              class="text-white font-nunito w-full text-xl lg:text-2xl xl:text-5xl mx-2"
             >
               <div>{{ time }}</div>
             </div>
           </div>
           <div
-            class="font-nunito w-full text-base lg:text-xl xl:text-2xl text-white text-center font-extrabold relative"
+            class="font-nunito w-full text-base lg:text-l xl:text-xl text-white text-center font-extrabold relative"
           >
             <div class="w-full">
               {{ formatDate(date) }}
@@ -35,8 +35,8 @@
         </div>
 
         <div class="relative m-0 col-span-5">
-          <!-- <div class="flex flex-col items-center justify-center h-screen relative"> -->
-          <div class="lg:h-screen xl:h-screen">
+          <!-- <div class="flex flex-col items-center justify-center relative"> -->
+          <div class="">
             <div class="header bg-transparent w-full pt-4" style="z-index: 2">
               <div>
                 <img
@@ -100,7 +100,7 @@
                 <div v-else>
                   <div
                     class="flex justify-center relative"
-                    style="width: 750px; height: 421px"
+                    style="width: 35vw; height: 39vh"
                   >
                     <iframe
                       src="https://www.youtube.com/embed/moQtMet7F7w?autoplay=1&mute=1"
@@ -161,12 +161,12 @@
           </div>
         </div>
         <div class="absolute bottom-0 py-1 w-full text-white bg-blue-midnight">
-          <!-- <marquee-text
+          <marquee-text
             :duration="40"
             class="text-lg lg:text-2xl xl:text-4xl uppercase"
           >
             {{ runningText.join("&#160; - ") }}
-          </marquee-text> -->
+          </marquee-text>
         </div>
       </div>
     </div>
@@ -178,7 +178,7 @@ import Time from "../components/Time.vue";
 import Side from "../components/Side.vue";
 import axios from "axios";
 import { DateTime } from "luxon";
-// import MarqueeText from "vue-marquee-text-component";
+import MarqueeText from "vue-marquee-text-component";
 
 const times = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
 const days = ["Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu", "Ahad"];
@@ -188,7 +188,7 @@ export default {
   components: {
     Time,
     Side,
-    // MarqueeText,
+    MarqueeText,
   },
   methods: {
     getPrayTime: async function () {
