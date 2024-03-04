@@ -19,9 +19,12 @@ const store = createStore({
   actions: {
     login({ commit }) {
       const token = localStorage.getItem('token');
-      if (token) {
-        // You may want to verify the token here
-        commit('setLoggedIn', true);
+      try {
+        if (token && JSON.parse(token).username) {
+          commit('setLoggedIn', true);
+        }
+      } catch (error) {
+        commit('setLoggedIn', false);
       }
     },
     logout({ commit }) {

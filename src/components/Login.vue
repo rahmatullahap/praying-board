@@ -61,9 +61,26 @@ export default {
     }
   },
   methods: {
-    login() {
-      if (this.username === "admin" && this.password === "admin") {
-        localStorage.setItem("token", "test");
+    verifyUser: async function (username, password) {
+      let { data } = await this.$store.state.database
+        .from("users")
+        .select("*")
+        .eq("username", username)
+        .eq("password", password);
+
+      if (data && data.length) {
+        return true;
+      }
+
+      return false;
+    },
+    async login() {
+      const verified = await this.verifyUser(this.username, this.password);
+      if (verified) {
+        localStorage.setItem(
+          "token",
+          JSON.stringify({ username: this.username })
+        );
         this.$router.go();
       } else {
         this.errorMessage = "Incorrect username or password";
