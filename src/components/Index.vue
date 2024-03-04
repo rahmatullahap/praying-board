@@ -2,7 +2,7 @@
   <div class="bg-wrap h-full">
     <img class="background-image" src="../assets/bg.jpg" alt="" />
     <div class="content h-full">
-      <div class="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-6 gap-0 h-full">
+      <div class="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-6 gap-0 lg:h-full xl:h-full">
         <div class="col-span-1 bg-green-cyan">
           <div
             class="text-center mt-4 mb-1 font-semibold flex flex-row items-center"
@@ -20,7 +20,7 @@
               {{ formatDate(date) }}
             </div>
           </div>
-          <div class="side-content hidden lg:block xl:block">
+          <div class="side-content pb-2">
             <Side
               class="mt-3"
               title="Ceramah Subuh"
@@ -129,7 +129,7 @@
             </div>
             <div class="flex flex-col items-center w-full relative">
               <div
-                class="block md:flex lg:flex xl:flex items-center font-nunito mt-1 absolute top-2"
+                class="block md:flex lg:flex xl:flex items-center font-nunito mt-1 absolute top-2 gap-3"
               >
                 <Time
                   :label="'Subuh'"
@@ -160,7 +160,7 @@
             </div>
           </div>
         </div>
-        <div class="absolute bottom-0 py-1 w-full text-white bg-blue-midnight">
+        <div class="absolute bottom-0 py-1 w-full text-white bg-blue-midnight hidden lg:block xl:block">
           <marquee-text
             :duration="40"
             class="text-lg lg:text-2xl xl:text-4xl uppercase"

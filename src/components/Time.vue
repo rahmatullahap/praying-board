@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="mx-4 p-6 xl:lg:p-8 lg:p-8 flex flex-col justify-between text-xs lg:text-base xl:text-2xl"
+      class="p-1 xl:lg:p-8 lg:p-8 flex flex-col justify-between text-xs lg:text-base xl:text-2xl"
       :class="
         active
           ? 'bg-blue-midnight text-white text-base lg:text-xl xl:text-4xl border-1 border-gray-900 font-extrabold'
