@@ -63,7 +63,10 @@
               />
             </td>
             <td>
-              <button @click="editEntry(entry.id, entry.lecturer, entry.date)" class="text-blue-500">
+              <button
+                @click="editEntry(entry.id, entry.lecturer, entry.date)"
+                class="text-blue-500"
+              >
                 Ubah
               </button>
             </td>
@@ -81,12 +84,6 @@
 </template>
 
 <script>
-import { createClient } from "@supabase/supabase-js";
-const supabaseUrl = "https://ueoydyhdhwahrlgjsnxd.supabase.co";
-const supabaseKey =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlb3lkeWhkaHdhaHJsZ2pzbnhkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwOTQ2NDEzNSwiZXhwIjoyMDI1MDQwMTM1fQ.2RxH7ZHE9pFOBicJNZuJ9gUzyXobmPYX72SqaDfspvw";
-const supabase = createClient(supabaseUrl, supabaseKey);
-
 export default {
   data() {
     return {
@@ -105,14 +102,14 @@ export default {
   },
   methods: {
     getPenceramahSubuh: async function () {
-      let { data: fajr_data } = await supabase
+      let { data: fajr_data } = await this.$store.state.database
         .from("penceramah_subuh")
         .select("*")
         .order("id");
       this.schedule = fajr_data;
     },
     updatePenceramahSubuh: async function (id, lecturer, date) {
-      const { error } = await supabase
+      const { error } = await this.$store.state.database
         .from("penceramah_subuh")
         .update({ lecturer, date })
         .eq("id", id)
@@ -138,7 +135,7 @@ export default {
       this.schedule.push({ lecturer: "", time: "" });
     },
     async editEntry(index, lecturer, date) {
-      await this.updatePenceramahSubuh(index, lecturer, date)
+      await this.updatePenceramahSubuh(index, lecturer, date);
     },
   },
 };

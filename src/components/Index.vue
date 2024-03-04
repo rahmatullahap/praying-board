@@ -1,163 +1,173 @@
 <template>
-  <div class="bg-orange h-screen">
-    <div class="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-6 gap-0">
-      <div class="col-span-1 bg-green-cyan">
-        <div
-          class="text-center mt-4 mb-1 font-semibold flex flex-row items-center"
-        >
+  <div class="bg-wrap">
+    <img class="background-image" src="../assets/bg.jpg" alt="" />
+    <div class="h-screen content">
+      <div class="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-6 gap-0">
+        <div class="col-span-1 bg-green-cyan">
           <div
-            class="text-white font-nunito w-full text-xl lg:text-2xl xl:text-6xl mx-2"
+            class="text-center mt-4 mb-1 font-semibold flex flex-row items-center"
           >
-            <div>{{ time }}</div>
-          </div>
-        </div>
-        <div
-          class="font-nunito w-full text-base lg:text-xl xl:text-2xl text-white text-center font-extrabold relative"
-        >
-          <div class="w-full">
-            {{ formatDate(date) }}
-          </div>
-        </div>
-        <div class="side-content hidden lg:block xl:block">
-          <Side
-            class="mt-3"
-            title="Ceramah Subuh"
-            :content="this.ceramahSubuh"
-          ></Side>
-          <Side
-            class="mt-3"
-            title="Khatib Jum’at"
-            :content="this.ceramahJumat"
-          ></Side>
-        </div>
-      </div>
-
-      <div class="relative m-0 col-span-5">
-        <!-- <div class="flex flex-col items-center justify-center h-screen relative"> -->
-        <div class="lg:h-screen xl:h-screen">
-          <div class="header bg-transparent w-full pt-4" style="z-index: 2">
-            <div>
-              <img
-                class="logo w-auto h-10 lg:h-20 xl:h-20"
-                src="../assets/logo.png"
-              />
-              <div class="font-ubuntu text-center">
-                <h1
-                  class="text-base lg:text-xl xl:text-2xl font-extrabold uppercase text-blue-midnight"
-                >
-                  Masjid Al Amanah
-                </h1>
-                <h2
-                  class="text-base lg:text-xl xl:text-2xl font-semibold text-blue-midnight"
-                >
-                  Jl. Kawaluyaan Indah I No.11
-                </h2>
-              </div>
+            <div
+              class="text-white font-nunito w-full text-xl lg:text-2xl xl:text-6xl mx-2"
+            >
+              <div>{{ time }}</div>
             </div>
           </div>
           <div
-            class="mt-4 mx-auto p-4 w-1/3 md:w-1/3 lg:w-1/2 xl:w-1/2 hidden lg:block xl:block"
+            class="font-nunito w-full text-base lg:text-xl xl:text-2xl text-white text-center font-extrabold relative"
           >
+            <div class="w-full">
+              {{ formatDate(date) }}
+            </div>
+          </div>
+          <div class="side-content hidden lg:block xl:block">
+            <Side
+              class="mt-3"
+              title="Ceramah Subuh"
+              :content="this.ceramahSubuh"
+            ></Side>
+            <Side
+              class="mt-3"
+              title="Khatib Jum’at"
+              :content="this.ceramahJumat"
+            ></Side>
+          </div>
+        </div>
+
+        <div class="relative m-0 col-span-5">
+          <!-- <div class="flex flex-col items-center justify-center h-screen relative"> -->
+          <div class="lg:h-screen xl:h-screen">
+            <div class="header bg-transparent w-full pt-4" style="z-index: 2">
+              <div>
+                <img
+                  class="logo w-auto h-10 lg:h-20 xl:h-20"
+                  src="../assets/logo.png"
+                />
+                <div class="font-ubuntu text-center">
+                  <h1
+                    class="text-base lg:text-xl xl:text-2xl font-extrabold uppercase text-blue-midnight"
+                  >
+                    Masjid Al Amanah
+                  </h1>
+                  <h2
+                    class="text-base lg:text-xl xl:text-2xl font-semibold text-blue-midnight"
+                  >
+                    Jl. Kawaluyaan Indah I No.11
+                  </h2>
+                </div>
+              </div>
+            </div>
             <div
-              class="main-content text-center text-2xl font-semibold flex flex-row items-center"
+              class="mt-4 mx-auto p-4 w-1/3 md:w-1/3 lg:w-1/2 xl:w-1/2 hidden lg:block xl:block"
             >
               <div
-                class="my-4 items-center h-full w-full"
-                v-if="beforeSholat < itv && beforeSholat > 0"
+                class="main-content text-center text-2xl font-semibold flex flex-row items-center"
               >
-                <div class="uppercase text-3xl font-semibold">Menuju Adzan</div>
                 <div
-                  class="bg-blue-midnight text-white border border-solid rounded-2xl font-nunito"
+                  class="my-4 items-center h-full w-full"
+                  v-if="beforeSholat < itv && beforeSholat > 0"
                 >
-                  <span class="text-6xl">{{ formatTime(beforeSholat) }}</span>
+                  <div class="uppercase text-3xl font-semibold">
+                    Menuju Adzan
+                  </div>
+                  <div
+                    class="bg-blue-midnight text-white border border-solid rounded-2xl font-nunito"
+                  >
+                    <span class="text-6xl">{{ formatTime(beforeSholat) }}</span>
+                  </div>
+                  <div class="text-2xl mt-2">
+                    Rasulullah shallallahu ‘alaihi wa sallam bersabda, “Dan
+                    seseorang dari kalian senantiasa dihitung dalam keadaan
+                    shalat selama shalat itu menahannya (dia menanti palaksanaan
+                    shalat). Di mana tidak ada yang menghalangi dia untuk
+                    kembali kepada keluarganya kecuali shalat itu.” (HR. Bukhari
+                    no. 659 dan Muslim no. 649)
+                  </div>
                 </div>
-                <div class="text-2xl mt-2">
-                  Rasulullah shallallahu ‘alaihi wa sallam bersabda, “Dan
-                  seseorang dari kalian senantiasa dihitung dalam keadaan shalat
-                  selama shalat itu menahannya (dia menanti palaksanaan shalat).
-                  Di mana tidak ada yang menghalangi dia untuk kembali kepada
-                  keluarganya kecuali shalat itu.” (HR. Bukhari no. 659 dan
-                  Muslim no. 649)
-                </div>
-              </div>
-              <div class="my-4 items-center h-full w-full" v-else-if="iqomah < itv && iqomah > 0">
-                <div class="uppercase text-3xl font-semibold">Menuju Iqomah</div>
                 <div
-                  class="bg-blue-midnight text-white border border-solid rounded-2xl font-nunito"
+                  class="my-4 items-center h-full w-full"
+                  v-else-if="iqomah < itv && iqomah > 0"
                 >
-                  <span class="text-6xl">{{ formatTime(iqomah) }}</span>
+                  <div class="uppercase text-3xl font-semibold">
+                    Menuju Iqomah
+                  </div>
+                  <div
+                    class="bg-blue-midnight text-white border border-solid rounded-2xl font-nunito"
+                  >
+                    <span class="text-6xl">{{ formatTime(iqomah) }}</span>
+                  </div>
                 </div>
-              </div>
-              <div v-else>
-                <div
-                  class="flex justify-center relative"
-                  style="width: 750px; height: 421px"
-                >
-                  <iframe
-                    src="https://www.youtube.com/embed/moQtMet7F7w?autoplay=1&mute=1"
-                    title="Youtube Video"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                    style="
-                      overflow: hidden;
-                      overflow-x: hidden;
-                      overflow-y: hidden;
-                      height: 100%;
-                      width: 100%;
-                      position: absolute;
-                      top: 0px;
-                      left: 0px;
-                      right: 0px;
-                      bottom: 0px;
-                    "
-                    height="100%"
-                    width="100%"
-                  ></iframe>
+                <div v-else>
+                  <div
+                    class="flex justify-center relative"
+                    style="width: 750px; height: 421px"
+                  >
+                    <iframe
+                      src="https://www.youtube.com/embed/moQtMet7F7w?autoplay=1&mute=1"
+                      title="Youtube Video"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                      style="
+                        overflow: hidden;
+                        overflow-x: hidden;
+                        overflow-y: hidden;
+                        height: 100%;
+                        width: 100%;
+                        position: absolute;
+                        top: 0px;
+                        left: 0px;
+                        right: 0px;
+                        bottom: 0px;
+                      "
+                      height="100%"
+                      width="100%"
+                    ></iframe>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="flex flex-col items-center w-full relative">
-            <div
-              class="block md:flex lg:flex xl:flex items-center font-nunito mt-1 absolute -top-2"
-            >
-              <Time
-                :label="'Subuh'"
-                :time="pray.Fajr"
-                :active="active === 'Fajr'"
-              ></Time>
-              <Time
-                :label="'Dzuhur'"
-                :time="pray.Dhuhr"
-                :active="active === 'Dhuhr'"
-              ></Time>
-              <Time
-                :label="'Ashar'"
-                :time="pray.Asr"
-                :active="active === 'Asr'"
-              ></Time>
-              <Time
-                :label="'Maghrib'"
-                :time="pray.Maghrib"
-                :active="active === 'Maghrib'"
-              ></Time>
-              <Time
-                :label="'Isya'"
-                :time="pray.Isha"
-                :active="active === 'Isha'"
-              ></Time>
+            <div class="flex flex-col items-center w-full relative">
+              <div
+                class="block md:flex lg:flex xl:flex items-center font-nunito mt-1 absolute -top-2"
+              >
+                <Time
+                  :label="'Subuh'"
+                  :time="pray.Fajr"
+                  :active="active === 'Fajr'"
+                ></Time>
+                <Time
+                  :label="'Dzuhur'"
+                  :time="pray.Dhuhr"
+                  :active="active === 'Dhuhr'"
+                ></Time>
+                <Time
+                  :label="'Ashar'"
+                  :time="pray.Asr"
+                  :active="active === 'Asr'"
+                ></Time>
+                <Time
+                  :label="'Maghrib'"
+                  :time="pray.Maghrib"
+                  :active="active === 'Maghrib'"
+                ></Time>
+                <Time
+                  :label="'Isya'"
+                  :time="pray.Isha"
+                  :active="active === 'Isha'"
+                ></Time>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="absolute bottom-0 py-1 w-full text-white bg-blue-midnight">
-        <marquee-text
-          :duration="40"
-          class="text-lg lg:text-2xl xl:text-4xl uppercase"
-        >
-          {{runningText.join('&#160; - ')}}
-        </marquee-text>
+        <div class="absolute bottom-0 py-1 w-full text-white bg-blue-midnight">
+          <marquee-text
+            :duration="40"
+            class="text-lg lg:text-2xl xl:text-4xl uppercase"
+          >
+            {{ runningText.join("&#160; - ") }}
+          </marquee-text>
+        </div>
       </div>
     </div>
   </div>
@@ -169,11 +179,6 @@ import Side from "../components/Side.vue";
 import axios from "axios";
 import { DateTime } from "luxon";
 import MarqueeText from "vue-marquee-text-component";
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = 'https://ueoydyhdhwahrlgjsnxd.supabase.co';
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlb3lkeWhkaHdhaHJsZ2pzbnhkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwOTQ2NDEzNSwiZXhwIjoyMDI1MDQwMTM1fQ.2RxH7ZHE9pFOBicJNZuJ9gUzyXobmPYX72SqaDfspvw"
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 const times = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
 const days = ["Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu", "Ahad"];
@@ -195,17 +200,20 @@ export default {
         dd = "0" + dd;
       }
 
-      let { data: pray_data } = await supabase
-        .from('pray_time')
-        .select('id, time, exact_time').order("id")
+      let { data: pray_data } = await this.$store.state.database
+        .from("pray_time")
+        .select("id, time, exact_time")
+        .order("id");
 
       pray_data = pray_data.map((p) => {
-        const time = p.exact_time ? p.exact_time.split(":").splice(0,2).join(":") : null
+        const time = p.exact_time
+          ? p.exact_time.split(":").splice(0, 2).join(":")
+          : null;
         return {
           ...p,
-          exact_time: time
-        }
-      })
+          exact_time: time,
+        };
+      });
 
       const url = `https://api.myquran.com/v2/sholat/jadwal/1219/${now.get(
         "year"
@@ -269,58 +277,72 @@ export default {
         .plus({ days: 2 })
         .toFormat("dd-MM-yyyy");
 
-      let { data: fajr_data } = await supabase
-        .from('penceramah_subuh')
-        .select('*').order('id')
+      let { data: fajr_data } = await this.$store.state.database
+        .from("penceramah_subuh")
+        .select("*")
+        .order("id");
 
-      this.ceramahSubuh = fajr_data.filter((c) => {
-        if (c.date === now || c.date === tomorrow || c.date === afterTomorrow) {
+      this.ceramahSubuh = fajr_data
+        .filter((c) => {
+          if (
+            c.date === now ||
+            c.date === tomorrow ||
+            c.date === afterTomorrow
+          ) {
+            return {
+              ...c,
+            };
+          }
+        })
+        .map((c) => {
+          const newDay = DateTime.fromFormat(c.date, "dd-MM-yyyy");
           return {
             ...c,
+            day: days[newDay.weekday - 1],
+            active: c.date === tomorrow,
           };
-        }
-      }).map((c) => {
-        const newDay = DateTime.fromFormat(c.date, "dd-MM-yyyy");
-        return {
-          ...c,
-          day: days[newDay.weekday - 1],
-          active: c.date === tomorrow,
-        };
-      });
-      // console.log(this.ceramahSubuh);
+        });
     },
     initJumaahLecturer: async function () {
       const now = DateTime.local().set({ weekday: 5 });
       const next = DateTime.local().set({ weekday: 5 }).plus({ weeks: 1 });
-      const afterNext = DateTime.local().set({ weekday: 5 }).plus({ weeks: 2 });
-      const afterAfterNext = DateTime.local()
-        .set({ weekday: 5 })
-        .plus({ weeks: 3 });
+      // const afterNext = DateTime.local().set({ weekday: 5 }).plus({ weeks: 2 });
+      // const afterAfterNext = DateTime.local()
+      //   .set({ weekday: 5 })
+      //   .plus({ weeks: 3 });
 
-      let { data: jumat_data } = await supabase
-        .from('penceramah_jumat')
-        .select('*')
+      let { data: jumat_data } = await this.$store.state.database
+        .from("penceramah_jumat")
+        .select("*");
 
-      this.ceramahJumat = jumat_data.filter((c) => {
-        if (
-          c.date === now.toFormat("dd-MM-yyyy") ||
-          c.date === next.toFormat("dd-MM-yyyy") ||
-          c.date === afterNext.toFormat("dd-MM-yyyy") ||
-          c.date === afterAfterNext.toFormat("dd-MM-yyyy")
-        ) {
-          return {
-            c,
-          };
-        }
-      }).map((c) => {
-        const dat = DateTime.fromFormat(c.date, "dd-MM-yyyy");
-        const diff = dat.diffNow("days").days;
-        console.log(diff);
+      jumat_data = jumat_data.map((j) => {
         return {
-          ...c,
-          active: diff < 7 && diff > 0,
+          ...j,
+          date: j.date ? j.date.trim() : null,
         };
       });
+
+      this.ceramahJumat = jumat_data
+        .filter((c) => {
+          if (
+            c.date === now.toFormat("dd-MM-yyyy") ||
+            c.date === next.toFormat("dd-MM-yyyy")
+          ) {
+            return {
+              c,
+            };
+          }
+        })
+        .map((c) => {
+          const dat = DateTime.fromFormat(c.date, "dd-MM-yyyy");
+          const diff = dat.diffNow("days").days;
+          const newDay = DateTime.fromFormat(c.date, "dd-MM-yyyy");
+          return {
+            ...c,
+            day: days[newDay.weekday - 1],
+            active: diff < 7 && diff > 0,
+          };
+        });
     },
     getNearerTime: function () {
       const diffs = [];
@@ -366,17 +388,21 @@ export default {
       }
     },
     initRunningText: async function () {
-      let { data } = await supabase
-        .from('information')
-        .select('*').eq('key', 'running_text')
+      let { data } = await this.$store.state.database
+        .from("information")
+        .select("*")
+        .eq("key", "running_text");
 
-      let { data: hadits } = await supabase
-        .from('hadits')
-        .select('*')
+      let { data: hadits } = await this.$store.state.database
+        .from("hadits")
+        .select("*");
 
-      const runningtext = ["", ...data.map((d) => d.detail), ...hadits.map((h) => h.hadits)];
+      const runningtext = [
+        "",
+        ...data.map((d) => d.detail),
+        ...hadits.map((h) => h.hadits),
+      ];
       this.runningText = runningtext;
-
     },
   },
   data() {
@@ -444,14 +470,25 @@ export default {
 
 <style scoped>
 .logo {
-  /* width: auto;
-  height: 100px; */
   margin: 0 auto;
 }
-/* .main-content {
-  height: 50vh;
+
+.demo-wrap {
+  overflow: hidden;
+  position: relative;
 }
-.side-content {
-  height: 82.5vh;
-} */
+
+.background-image {
+  opacity: 0.6;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.content {
+  background-color: rgba(255, 165, 0, 0.4);
+  position: relative;
+}
 </style>
