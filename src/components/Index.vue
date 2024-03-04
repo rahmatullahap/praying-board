@@ -313,7 +313,8 @@ export default {
 
       let { data: jumat_data } = await this.$store.state.database
         .from("penceramah_jumat")
-        .select("*");
+        .select("*")
+        .order("id");
 
       jumat_data = jumat_data.map((j) => {
         return {

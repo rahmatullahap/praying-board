@@ -139,7 +139,7 @@
               </td>
               <td>
                 <button
-                  @click="editEntry(entry.id, entry.lecturer, entry.date)"
+                  @click="editEntrySubuh(entry.id, entry.lecturer, entry.date)"
                   class="text-blue-500"
                 >
                   Ubah
@@ -169,7 +169,7 @@
               </td>
               <td>
                 <button
-                  @click="editEntry(entry.id, entry.lecturer, entry.date)"
+                  @click="editEntryJumat(entry.id, entry.lecturer, entry.date)"
                   class="text-blue-500"
                 >
                   Ubah
@@ -265,6 +265,19 @@ export default {
         this.toast.success("Sukses merubah data");
       }
     },
+    updatePenceramahJumat: async function (id, lecturer, date) {
+      const { error } = await this.$store.state.database
+        .from("penceramah_jumat")
+        .update({ lecturer, date })
+        .eq("id", id)
+        .select();
+      if (error) {
+        this.toast.error(error);
+      } else {
+        await this.getPenceramahJumat();
+        this.toast.success("Sukses merubah data");
+      }
+    },
     logout() {
       this.$store.dispatch("logout");
       this.$router.push("/");
@@ -272,8 +285,11 @@ export default {
     addEntry() {
       this.schedule_fajr.push({ lecturer: "", time: "" });
     },
-    async editEntry(index, lecturer, date) {
+    async editEntrySubuh(index, lecturer, date) {
       await this.updatePenceramahSubuh(index, lecturer, date);
+    },
+    async editEntryJumat(index, lecturer, date) {
+      await this.updatePenceramahJumat(index, lecturer, date);
     },
     async submitFormSholat() {
       let errorMessage = "";
