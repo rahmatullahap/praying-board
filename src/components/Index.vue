@@ -161,12 +161,12 @@
           </div>
         </div>
         <div class="absolute bottom-0 py-1 w-full text-white bg-blue-midnight">
-          <marquee-text
+          <!-- <marquee-text
             :duration="40"
             class="text-lg lg:text-2xl xl:text-4xl uppercase"
           >
             {{ runningText.join("&#160; - ") }}
-          </marquee-text>
+          </marquee-text> -->
         </div>
       </div>
     </div>
@@ -178,7 +178,7 @@ import Time from "../components/Time.vue";
 import Side from "../components/Side.vue";
 import axios from "axios";
 import { DateTime } from "luxon";
-import MarqueeText from "vue-marquee-text-component";
+// import MarqueeText from "vue-marquee-text-component";
 
 const times = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
 const days = ["Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu", "Ahad"];
@@ -188,7 +188,7 @@ export default {
   components: {
     Time,
     Side,
-    MarqueeText,
+    // MarqueeText,
   },
   methods: {
     getPrayTime: async function () {
