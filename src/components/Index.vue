@@ -12,7 +12,7 @@
             <div
               class="text-white font-nunito w-full mx-2"
             >
-              <div class="text-6xl">{{ time }}</div>
+              <div class="text-5xl">{{ time }}</div>
             </div>
           </div>
           <div
