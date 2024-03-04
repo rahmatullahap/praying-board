@@ -2,15 +2,17 @@
   <div class="bg-wrap h-full">
     <img class="background-image" src="../assets/bg.jpg" alt="" />
     <div class="content h-full">
-      <div class="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-6 gap-0 lg:h-full xl:h-full">
+      <div
+        class="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-6 gap-0 lg:h-full xl:h-full"
+      >
         <div class="col-span-1 bg-green-cyan">
           <div
             class="text-center mt-4 mb-1 font-semibold flex flex-row items-center"
           >
             <div
-              class="text-white font-nunito w-full text-xl lg:text-2xl xl:text-5xl mx-2"
+              class="text-white font-nunito w-full mx-2"
             >
-              <div>{{ time }}</div>
+              <div class="text-6xl">{{ time }}</div>
             </div>
           </div>
           <div
@@ -100,7 +102,7 @@
                 <div v-else>
                   <div
                     class="flex justify-center relative"
-                    style="width: 54.5vw; height: 55vh"
+                    style="width: 48vw; height: 49vh"
                   >
                     <iframe
                       src="https://www.youtube.com/embed/moQtMet7F7w?autoplay=1&mute=1"
@@ -129,7 +131,7 @@
             </div>
             <div class="flex flex-col items-center w-full relative">
               <div
-                class="block md:flex lg:flex xl:flex items-center font-nunito mt-1 absolute top-2 gap-3"
+                class="flex md:flex lg:flex xl:flex items-center font-nunito mt-1 absolute top-2 gap-0 lg:gap-3 xl:gap-3"
               >
                 <Time
                   :label="'Subuh'"
@@ -160,16 +162,18 @@
             </div>
           </div>
         </div>
-        <div class="absolute bottom-0 py-1 w-full text-white bg-blue-midnight hidden lg:block xl:block">
-          <marquee-text
-            :duration="40"
-            class="text-lg lg:text-2xl xl:text-4xl uppercase"
-          >
-            {{ runningText.join("&#160; - ") }}
-          </marquee-text>
-        </div>
       </div>
     </div>
+  </div>
+  <div
+    class="absolute bottom-0 py-1 w-full text-white bg-blue-midnight"
+  >
+    <marquee-text
+      :duration="40"
+      class="text-lg lg:text-2xl xl:text-4xl uppercase"
+    >
+      {{ runningText.join("&#160; - ") }}
+    </marquee-text>
   </div>
 </template>
 
