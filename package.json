@@ -15,6 +15,7 @@
     "vue": "^3.0.0",
     "vue-marquee-text-component": "^2.0.1",
     "vue-router": "^4.0.13",
+    "vue-toastification": "^2.0.0-rc.5",
     "vue3-player-video": "^1.2.5",
     "vue3-youtube": "^0.1.9",
     "vuex": "^4.1.0"
