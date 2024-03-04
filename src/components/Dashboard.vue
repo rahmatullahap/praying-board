@@ -91,28 +91,27 @@
         </form>
       </div>
       <div class="w-full">
-        <h2 class="text-lg font-bold mb-4">Running Text</h2>
-        <form>
-          <label
-            for="runningText"
-            class="block text-gray-700 text-sm font-bold mb-2"
-            >Running Text</label
-          >
-          <input
-            type="text"
-            id="runningText"
-            v-model="runningText"
-            class="w-full h-10 px-3 border rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter your running text"
-          />
-
-          <!-- Add more form fields as needed -->
+        <h2 class="text-lg font-bold mb-4">Information</h2>
+        <form @submit.prevent="submitFormInformation">
+          <div v-for="(info, index) in this.information" :key="index">
+            <label
+              :for="info.key"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >{{info.info}}</label
+            >
+            <input
+              type="text"
+              :id="info.key"
+              v-model="info.detail"
+              class="w-full h-10 px-3 border rounded-lg focus:outline-none focus:border-blue-500"
+            />
+          </div>
 
           <button
             type="submit"
             class="mt-4 bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
           >
-            Submit
+            Ubah
           </button>
         </form>
       </div>
@@ -199,7 +198,7 @@ export default {
   },
   data() {
     return {
-      runningText: "",
+      information: {},
       sholat: {
         fajr: "",
         dhuhr: "",
@@ -216,6 +215,7 @@ export default {
     this.getPenceramahSubuh();
     this.getPenceramahJumat();
     this.getSholat();
+    this.getInformation();
   },
   methods: {
     getPenceramahSubuh: async function () {
@@ -245,6 +245,13 @@ export default {
         isha: data[6].exact_time,
       };
     },
+    getInformation: async function () {
+      let { data } = await this.$store.state.database
+        .from("information")
+        .select("*")
+        .order("id");
+      this.information = data;
+    },
     updatePenceramahSubuh: async function (id, lecturer, date) {
       const { error } = await this.$store.state.database
         .from("penceramah_subuh")
@@ -271,7 +278,6 @@ export default {
     async submitFormSholat() {
       let errorMessage = "";
       for (let s in this.sholat) {
-        console.log(this.sholat[s])
         const { error } = await this.$store.state.database
           .from("pray_time")
           .update({ exact_time: this.sholat[s] })
@@ -285,7 +291,27 @@ export default {
       if (errorMessage) {
         this.toast.error(errorMessage);
       } else {
-        this.toast.success('Berhasil Merubah Data')
+        this.toast.success("Berhasil Merubah Data");
+        this.getSholat();
+      }
+    },
+    async submitFormInformation() {
+      let errorMessage = "";
+      for (let s in this.information) {
+        const { error } = await this.$store.state.database
+          .from("information")
+          .update({ detail: this.information[s].detail })
+          .eq("key", this.information[s].key)
+          .select();
+        if (error) {
+          errorMessage = error;
+        }
+      }
+
+      if (errorMessage) {
+        this.toast.error(errorMessage);
+      } else {
+        this.toast.success("Berhasil Merubah Data");
         this.getSholat();
       }
     },

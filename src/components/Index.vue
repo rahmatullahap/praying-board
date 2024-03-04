@@ -61,10 +61,10 @@
               class="mt-4 hidden lg:block xl:flex w-full justify-center items-center"
             >
               <div
-                class="main-content text-center text-2xl font-semibold flex flex-row items-center"
+                class="main-content text-center text-2xl font-semibold flex flex-row items-center justify-center"
               >
                 <div
-                  class="my-4 items-center h-full w-full"
+                  class="my-4 items-center h-full w-3/5"
                   v-if="beforeSholat < itv && beforeSholat > 0"
                 >
                   <div class="uppercase text-3xl font-semibold">
