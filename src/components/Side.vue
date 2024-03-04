@@ -30,7 +30,7 @@ export default {
   name: "Side",
   props: {
     title: String,
-    content: String,
+    content: Array,
   },
   methods: {},
 };

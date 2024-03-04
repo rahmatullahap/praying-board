@@ -440,9 +440,7 @@ export default {
   mounted() {
     this.active = "Fajr";
     this.getPrayTime();
-
     this.getContent();
-
     this.initiateDate = 0;
 
     // update the time every second
@@ -457,8 +455,8 @@ export default {
         this.initiateDate > 60 * 10 ||
         (splitTime[1] === "00" && splitTime[2] === "00")
       ) {
-        this.getContent();
         this.getPrayTime();
+        this.getContent();
         this.initiateDate = 0;
         console.log("triggered");
       }
