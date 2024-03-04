@@ -100,7 +100,7 @@
                 <div v-else>
                   <div
                     class="flex justify-center relative"
-                    style="width: 45vw; height: 45vh"
+                    style="width: 54.5vw; height: 55vh"
                   >
                     <iframe
                       src="https://www.youtube.com/embed/moQtMet7F7w?autoplay=1&mute=1"
