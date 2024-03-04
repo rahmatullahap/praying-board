@@ -36,7 +36,7 @@
 
         <div class="relative m-0 col-span-5">
           <!-- <div class="flex flex-col items-center justify-center relative"> -->
-          <div class="">
+          <div class="h-full">
             <div class="header bg-transparent w-full pt-4" style="z-index: 2">
               <div>
                 <img
@@ -58,7 +58,7 @@
               </div>
             </div>
             <div
-              class="mt-4 mx-auto p-4 w-1/3 md:w-1/3 lg:w-1/2 xl:w-1/2 hidden lg:block xl:block"
+              class="mt-4 hidden lg:block xl:flex w-full justify-center items-center"
             >
               <div
                 class="main-content text-center text-2xl font-semibold flex flex-row items-center"
@@ -100,7 +100,7 @@
                 <div v-else>
                   <div
                     class="flex justify-center relative"
-                    style="width: 35vw; height: 39vh"
+                    style="width: 45vw; height: 45vh"
                   >
                     <iframe
                       src="https://www.youtube.com/embed/moQtMet7F7w?autoplay=1&mute=1"
@@ -129,7 +129,7 @@
             </div>
             <div class="flex flex-col items-center w-full relative">
               <div
-                class="block md:flex lg:flex xl:flex items-center font-nunito mt-1 absolute -top-2"
+                class="block md:flex lg:flex xl:flex items-center font-nunito mt-1 absolute top-2"
               >
                 <Time
                   :label="'Subuh'"
