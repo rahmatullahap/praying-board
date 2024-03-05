@@ -9,9 +9,7 @@
           <div
             class="text-center mt-4 mb-1 font-semibold flex flex-row items-center"
           >
-            <div
-              class="text-white font-nunito w-full mx-2"
-            >
+            <div class="text-white font-nunito w-full mx-2">
               <div class="text-5xl">{{ time }}</div>
             </div>
           </div>
@@ -33,6 +31,19 @@
               title="Khatib Jum’at"
               :content="this.ceramahJumat"
             ></Side>
+            <div class="mx-4 bg-white mt-3" v-if="qrCode && qrCode.detail">
+              <div
+                class="text-base xl:text-xl font-extrabold text-center mb-0 px-6 pt-3"
+              >
+                {{ qrCode.info }}
+              </div>
+              <div class="flex items-center justify-center py-3">
+                <vue-qrcode
+                  :value="qrCode.detail"
+                  :options="{ width: 200 }"
+                ></vue-qrcode>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -105,7 +116,7 @@
                     style="width: 48vw; height: 49vh"
                   >
                     <iframe
-                      src="https://www.youtube.com/embed/moQtMet7F7w?autoplay=1&mute=1"
+                      :src="video_url"
                       title="Youtube Video"
                       frameborder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -165,9 +176,7 @@
       </div>
     </div>
   </div>
-  <div
-    class="absolute bottom-0 py-1 w-full text-white bg-blue-midnight"
-  >
+  <div class="fixed bottom-0 py-1 w-full text-white bg-blue-midnight">
     <marquee-text
       :duration="40"
       class="text-lg lg:text-2xl xl:text-4xl uppercase"
@@ -271,6 +280,8 @@ export default {
       await this.initFajrLecturer();
       await this.initJumaahLecturer();
       await this.initRunningText();
+      await this.initQrCode();
+      await this.initVideo();
     },
     initFajrLecturer: async function () {
       const now = DateTime.local().toFormat("dd-MM-yyyy");
@@ -409,6 +420,31 @@ export default {
       ];
       this.runningText = runningtext;
     },
+    initQrCode: async function () {
+      let { data } = await this.$store.state.database
+        .from("information")
+        .select("*")
+        .eq("key", "qr_code");
+
+      if (data.length) {
+        this.qrCode = {
+          info: data[0].info,
+          detail: data[0].detail,
+        };
+      }
+    },
+    initVideo: async function () {
+      let { data } = await this.$store.state.database
+        .from("information")
+        .select("*")
+        .eq("key", "stream_video");
+
+      if (data.length) {
+        this.video_url = data[0].detail.includes("youtube")
+          ? data[0].detail + "?autoplay=1&mute=1"
+          : data[0].detail;
+      }
+    },
   },
   data() {
     return {
@@ -435,6 +471,8 @@ export default {
       ceramahSubuh: [],
       ceramahJumat: [],
       runningText: [],
+      qrCode: null,
+      video_url: null,
     };
   },
   beforeUnmount() {
