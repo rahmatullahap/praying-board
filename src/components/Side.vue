@@ -17,7 +17,13 @@
             {{ con.day }}, {{ con.date }}
           </div>
           <div class="text-base xl:text-xl px-6">
-            {{ con.lecturer }}
+            <div v-if="con.lecturer.includes('|')" class="grid grid-cols-2 gap-0 items-center">
+              <div>{{ con.lecturer.split('|')[0] }}</div>
+              <div class="border-l-2">{{ con.lecturer.split('|')[1] }}</div>
+            </div>
+            <div v-else>
+              {{ con.lecturer }}
+            </div>
           </div>
         </div>
       </div>

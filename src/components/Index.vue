@@ -123,7 +123,7 @@
                     class="text-2xl mt-2  flex items-center justify-center"
                     v-if="hadits.length"
                   >
-                    <div class="w-1/2 my-24">
+                    <div class="w-1/2">
                       {{ hadits[currentIndex] }}
                     </div>
                   </div>
@@ -195,7 +195,7 @@
   </div>
   <div class="fixed bottom-0 py-1 w-full text-white bg-blue-midnight">
     <marquee-text
-      :duration="60"
+      :duration="40"
       class="text-lg lg:text-2xl xl:text-4xl uppercase"
     >
       {{ runningText.join("&#160; - ") }}
