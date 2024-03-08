@@ -344,7 +344,7 @@ export default {
     initJumaahLecturer: async function () {
       const now = DateTime.local().set({ weekday: 5 });
       const next = DateTime.local().set({ weekday: 5 }).plus({ weeks: 1 });
-      const afterNext = DateTime.local().set({ weekday: 5 }).plus({ weeks: 2 });
+      // const afterNext = DateTime.local().set({ weekday: 5 }).plus({ weeks: 2 });
       // const afterAfterNext = DateTime.local()
       //   .set({ weekday: 5 })
       //   .plus({ weeks: 3 });
@@ -365,8 +365,7 @@ export default {
         .filter((c) => {
           if (
             c.date === now.toFormat("dd-MM-yyyy") ||
-            c.date === next.toFormat("dd-MM-yyyy") ||
-            c.date === afterNext.toFormat("dd-MM-yyyy")
+            c.date === next.toFormat("dd-MM-yyyy")
           ) {
             return {
               c,
