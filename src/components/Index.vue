@@ -10,7 +10,7 @@
             class="text-center mt-4 mb-1 font-semibold flex flex-row items-center"
           >
             <div class="text-white font-nunito w-full mx-2">
-              <div class="text-5xl">{{ time }}</div>
+              <div class="text:2xl lg:text-5xl xl:text-5xl">{{ time }}</div>
             </div>
           </div>
           <div
