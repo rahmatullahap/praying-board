@@ -552,7 +552,7 @@ export default {
 }
 
 .background-image {
-  opacity: 0.6;
+  opacity: 0.2;
   position: absolute;
   left: 0;
   top: 0;

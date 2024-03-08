@@ -5,7 +5,7 @@
       :class="
         active
           ? 'bg-blue-midnight text-white text-base lg:text-xl xl:text-5xl border-1 border-gray-900 font-extrabold'
-          : 'bg-white border'
+          : 'bg-gray-800 border text-white'
       "
     >
       <div class="font-extrabold text-center">{{ label }}</div>
