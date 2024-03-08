@@ -124,7 +124,7 @@
         <table class="w-full">
           <thead>
             <tr>
-              <th class="py-2">Penceramah</th>
+              <th class="py-2">Penceramah | Imam</th>
               <th class="py-2">Waktu</th>
               <th class="py-2"></th>
             </tr>
