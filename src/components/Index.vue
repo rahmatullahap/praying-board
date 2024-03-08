@@ -331,7 +331,7 @@ export default {
         //     };
         //   }
         // })
-        .splice(0,4)
+        .splice(0,3)
         .map((c) => {
           const newDay = DateTime.fromFormat(c.date, "dd-MM-yyyy");
           return {
