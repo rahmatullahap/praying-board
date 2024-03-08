@@ -97,7 +97,7 @@
             <label
               :for="info.key"
               class="block text-gray-700 text-sm font-bold mb-2"
-              >{{info.info}}</label
+              >{{ info.info }}</label
             >
             <input
               type="text"
@@ -118,9 +118,9 @@
     </div>
 
     <!-- Editable table -->
-    <div class="bg-white p-4 rounded shadow-md w-full flex gap-4">
+    <div class="bg-white p-4 rounded shadow-md w-full flex gap-4 mb-4">
       <div class="w-full">
-        <h2 class="text-lg font-bold mb-4">Penceramah Subuh</h2>
+        <h2 class="text-lg font-bold mb-4">Penceramah | Imam Tarawih</h2>
         <table class="w-full">
           <thead>
             <tr>
@@ -130,7 +130,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(entry, index) in schedule_fajr" :key="index">
+            <tr v-for="(entry, index) in schedule_main" :key="index">
               <td>
                 <input v-model="entry.lecturer" class="w-full border px-2" />
               </td>
@@ -139,7 +139,7 @@
               </td>
               <td>
                 <button
-                  @click="editEntrySubuh(entry.id, entry.lecturer, entry.date)"
+                  @click="editEntryMain(entry.id, entry.lecturer, entry.date)"
                   class="text-blue-500"
                 >
                   Ubah
@@ -186,6 +186,18 @@
         </button>
       </div>
     </div>
+
+    <div class="bg-white p-4 rounded shadow-md w-full flex gap-4">
+      <div class="w-full">
+        <h2 class="text-lg font-bold mb-4">Hadits</h2>
+        <div v-for="(entry, index) in hadits" :key="index">
+          <div>
+            <textarea v-model="entry.hadits" class="w-full border px-2" />
+          </div>
+        </div>
+        <button @click="updateHadits()" class="text-blue-500">Ubah</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -198,7 +210,8 @@ export default {
   },
   data() {
     return {
-      information: {},
+      information: [],
+      hadits: [],
       sholat: {
         fajr: "",
         dhuhr: "",
@@ -207,23 +220,24 @@ export default {
         isha: "",
       },
       // Add more data properties as needed
-      schedule_fajr: [{ id: "", lecturer: "", date: "" }],
+      schedule_main: [{ id: "", lecturer: "", date: "" }],
       schedule_jumah: [{ id: "", lecturer: "", date: "" }],
     };
   },
   mounted() {
-    this.getPenceramahSubuh();
+    this.getPenceramahMain();
     this.getPenceramahJumat();
     this.getSholat();
     this.getInformation();
+    this.getHadits();
   },
   methods: {
-    getPenceramahSubuh: async function () {
+    getPenceramahMain: async function () {
       let { data } = await this.$store.state.database
-        .from("penceramah_subuh")
+        .from("penceramah_tarawih")
         .select("*")
         .order("id");
-      this.schedule_fajr = data;
+      this.schedule_main = data;
     },
     getPenceramahJumat: async function () {
       let { data } = await this.$store.state.database
@@ -252,16 +266,23 @@ export default {
         .order("id");
       this.information = data;
     },
-    updatePenceramahSubuh: async function (id, lecturer, date) {
+    getHadits: async function () {
+      let { data } = await this.$store.state.database
+        .from("hadits")
+        .select("*")
+        .order("id");
+      this.hadits = data;
+    },
+    updatePenceramahMain: async function (id, lecturer, date) {
       const { error } = await this.$store.state.database
-        .from("penceramah_subuh")
+        .from("penceramah_tarawih")
         .update({ lecturer, date })
         .eq("id", id)
         .select();
       if (error) {
         this.toast.error(error);
       } else {
-        await this.getPenceramahSubuh();
+        await this.getPenceramahMain();
         this.toast.success("Sukses merubah data");
       }
     },
@@ -278,15 +299,29 @@ export default {
         this.toast.success("Sukses merubah data");
       }
     },
+    updateHadits: async function () {
+      for (let ha of this.hadits) {
+        const { error } = await this.$store.state.database
+          .from("hadits")
+          .update({ hadits: ha.hadits })
+          .eq("id", ha.id)
+          .select();
+        if (error) {
+          this.toast.error(error);
+        }
+      }
+      await this.getHadits();
+      this.toast.success('Sukses merubah data');
+    },
     logout() {
       this.$store.dispatch("logout");
       this.$router.push("/");
     },
     addEntry() {
-      this.schedule_fajr.push({ lecturer: "", time: "" });
+      this.schedule_main.push({ lecturer: "", time: "" });
     },
-    async editEntrySubuh(index, lecturer, date) {
-      await this.updatePenceramahSubuh(index, lecturer, date);
+    async editEntryMain(index, lecturer, date) {
+      await this.updatePenceramahMain(index, lecturer, date);
     },
     async editEntryJumat(index, lecturer, date) {
       await this.updatePenceramahJumat(index, lecturer, date);

@@ -6,17 +6,17 @@
       >
         {{ title }}
       </div>
-      <div class="divide-y divide-solid">
+      <div class="divide-y divide-solid text-center">
         <div
           v-for="con of content"
           :key="'lecturer' + con.date"
           class="py-2"
           :class="con.active ? 'bg-orange' : ''"
         >
-          <div class="text-xs xl:text-base flex font-semibold px-6">
+          <div class="text-base xl:text-xl font-semibold px-6">
             {{ con.day }}, {{ con.date }}
           </div>
-          <div class="text-xs xl:text-base px-6">
+          <div class="text-base xl:text-xl px-6">
             {{ con.lecturer }}
           </div>
         </div>

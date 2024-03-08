@@ -3,7 +3,7 @@
     <img class="background-image" src="../assets/bg.jpg" alt="" />
     <div class="content h-full">
       <div
-        class="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-6 gap-0 lg:h-full xl:h-full"
+        class="grid grid-cols-1 lg:grid-cols-4 xl:grid-cols-4 gap-0 lg:h-full xl:h-full"
       >
         <div class="col-span-1 bg-green-cyan">
           <div
@@ -23,15 +23,15 @@
           <div class="side-content pb-2">
             <Side
               class="mt-3"
-              title="Ceramah Subuh"
-              :content="this.ceramahSubuh"
+              title="Imam dan Penceramah Tarawih"
+              :content="this.ceramahMain"
             ></Side>
             <Side
               class="mt-3"
               title="Khatib Jum’at"
               :content="this.ceramahJumat"
             ></Side>
-            <div class="mx-4 bg-white mt-3" v-if="qrCode && qrCode.detail">
+            <!-- <div class="mx-4 bg-white mt-3" v-if="qrCode && qrCode.detail">
               <div
                 class="text-base xl:text-xl font-extrabold text-center mb-0 px-6 pt-3"
               >
@@ -43,11 +43,11 @@
                   :options="{ width: 200 }"
                 ></vue-qrcode>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
 
-        <div class="relative m-0 col-span-5">
+        <div class="relative m-0 col-span-3">
           <!-- <div class="flex flex-col items-center justify-center relative"> -->
           <div class="h-full">
             <div class="header bg-transparent w-full pt-4" style="z-index: 2">
@@ -98,7 +98,7 @@
                   </div>
                 </div>
                 <div
-                  class="my-4 items-center h-full w-full"
+                  class="my-4 items-center h-full w-3/5"
                   v-else-if="iqomah < itv && iqomah > 0"
                 >
                   <div class="uppercase text-3xl font-semibold">
@@ -109,11 +109,28 @@
                   >
                     <span class="text-6xl">{{ formatTime(iqomah) }}</span>
                   </div>
+                  <div class="text-2xl mt-2">
+                    Rasulullah shallallahu ‘alaihi wa sallam bersabda, “Dan
+                    seseorang dari kalian senantiasa dihitung dalam keadaan
+                    shalat selama shalat itu menahannya (dia menanti palaksanaan
+                    shalat). Di mana tidak ada yang menghalangi dia untuk
+                    kembali kepada keluarganya kecuali shalat itu.” (HR. Bukhari
+                    no. 659 dan Muslim no. 649)
+                  </div>
                 </div>
                 <div v-else>
                   <div
+                    class="text-2xl mt-2  flex items-center justify-center"
+                    v-if="hadits.length"
+                  >
+                    <div class="w-1/2 my-24">
+                      {{ hadits[currentIndex] }}
+                    </div>
+                  </div>
+                  <div
                     class="flex justify-center relative"
                     style="width: 48vw; height: 49vh"
+                    v-else
                   >
                     <iframe
                       :src="video_url"
@@ -178,7 +195,7 @@
   </div>
   <div class="fixed bottom-0 py-1 w-full text-white bg-blue-midnight">
     <marquee-text
-      :duration="40"
+      :duration="60"
       class="text-lg lg:text-2xl xl:text-4xl uppercase"
     >
       {{ runningText.join("&#160; - ") }}
@@ -277,38 +294,44 @@ export default {
     },
     getContent: async function () {
       // get dynamic content
-      await this.initFajrLecturer();
+      await this.initMainLecturer();
       await this.initJumaahLecturer();
       await this.initRunningText();
       await this.initQrCode();
       await this.initVideo();
+      await this.initHadits();
     },
-    initFajrLecturer: async function () {
-      const now = DateTime.local().toFormat("dd-MM-yyyy");
+    initMainLecturer: async function () {
+      // const now = DateTime.local().toFormat("dd-MM-yyyy");
       const tomorrow = DateTime.local()
         .plus({ days: 1 })
         .toFormat("dd-MM-yyyy");
-      const afterTomorrow = DateTime.local()
-        .plus({ days: 2 })
-        .toFormat("dd-MM-yyyy");
+      // const afterTomorrow = DateTime.local()
+      //   .plus({ days: 2 })
+      //   .toFormat("dd-MM-yyyy");
+      // const afterAfterTomorrow = DateTime.local()
+      //   .plus({ days: 3 })
+      //   .toFormat("dd-MM-yyyy");
 
-      let { data: fajr_data } = await this.$store.state.database
-        .from("penceramah_subuh")
+      let { data } = await this.$store.state.database
+        .from("penceramah_tarawih")
         .select("*")
         .order("id");
 
-      this.ceramahSubuh = fajr_data
-        .filter((c) => {
-          if (
-            c.date === now ||
-            c.date === tomorrow ||
-            c.date === afterTomorrow
-          ) {
-            return {
-              ...c,
-            };
-          }
-        })
+      this.ceramahMain = data
+        // TODO back to 3
+        // .filter((c) => {
+        //   if (
+        //     c.date === now ||
+        //     c.date === tomorrow ||
+        //     c.date === afterTomorrow
+        //   ) {
+        //     return {
+        //       ...c,
+        //     };
+        //   }
+        // })
+        .splice(0,4)
         .map((c) => {
           const newDay = DateTime.fromFormat(c.date, "dd-MM-yyyy");
           return {
@@ -321,7 +344,7 @@ export default {
     initJumaahLecturer: async function () {
       const now = DateTime.local().set({ weekday: 5 });
       const next = DateTime.local().set({ weekday: 5 }).plus({ weeks: 1 });
-      // const afterNext = DateTime.local().set({ weekday: 5 }).plus({ weeks: 2 });
+      const afterNext = DateTime.local().set({ weekday: 5 }).plus({ weeks: 2 });
       // const afterAfterNext = DateTime.local()
       //   .set({ weekday: 5 })
       //   .plus({ weeks: 3 });
@@ -342,7 +365,8 @@ export default {
         .filter((c) => {
           if (
             c.date === now.toFormat("dd-MM-yyyy") ||
-            c.date === next.toFormat("dd-MM-yyyy")
+            c.date === next.toFormat("dd-MM-yyyy") ||
+            c.date === afterNext.toFormat("dd-MM-yyyy")
           ) {
             return {
               c,
@@ -409,16 +433,17 @@ export default {
         .select("*")
         .eq("key", "running_text");
 
-      let { data: hadits } = await this.$store.state.database
-        .from("hadits")
-        .select("*");
-
-      const runningtext = [
-        "",
-        ...data.map((d) => d.detail),
-        ...hadits.map((h) => h.hadits),
-      ];
+      const runningtext = [".\t.", ...data.map((d) => d.detail)];
       this.runningText = runningtext;
+    },
+    initHadits: async function () {
+      let { data } = await this.$store.state.database
+        .from("hadits")
+        .select("*")
+        .not("hadits", "is", null);
+
+      const d = [...data.map((d) => d.hadits)];
+      this.hadits = d;
     },
     initQrCode: async function () {
       let { data } = await this.$store.state.database
@@ -468,37 +493,44 @@ export default {
       itv: 600,
       playing: true,
       initiateDate: Number,
-      ceramahSubuh: [],
+      ceramahMain: [],
       ceramahJumat: [],
       runningText: [],
+      hadits: [],
       qrCode: null,
       video_url: null,
+      currentIndex: 0,
     };
   },
   beforeUnmount() {
     // prevent memory leak
     clearInterval(this.interval);
   },
-  mounted() {
+  async mounted() {
     this.active = "Fajr";
-    this.getPrayTime();
-    this.getContent();
+    await this.getPrayTime();
+    await this.getContent();
     this.initiateDate = 0;
+    this.currentIndex = Math.floor(Math.random() * this.hadits.length);
 
     // update the time every second
-    this.interval = setInterval(() => {
+    this.interval = setInterval(async () => {
       const now = DateTime.local();
       this.time = now.setLocale("id").toFormat("HH:mm:ss");
       this.initiateDate++;
       const splitTime = this.time.split(":");
+
+      if (this.initiateDate % 100 === 0) {
+        this.currentIndex = Math.floor(Math.random() * this.hadits.length);
+      }
 
       // refresh on every ten minutes
       if (
         this.initiateDate > 60 * 10 ||
         (splitTime[1] === "00" && splitTime[2] === "00")
       ) {
-        this.getPrayTime();
-        this.getContent();
+        await this.getPrayTime();
+        await this.getContent();
         this.initiateDate = 0;
         console.log("triggered");
       }
@@ -529,7 +561,7 @@ export default {
 }
 
 .content {
-  background-color: rgba(255, 165, 0, 0.4);
+  /* background-color: rgba(255, 165, 0, 0.4); */
   position: relative;
 }
 </style>
