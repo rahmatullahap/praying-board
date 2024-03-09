@@ -88,7 +88,7 @@
                   >
                     <span class="text-6xl">{{ formatTime(beforeSholat) }}</span>
                   </div>
-                  <div class="text-2xl mt-2">
+                  <div class="text-xl mt-2">
                     Rasulullah shallallahu ‘alaihi wa sallam bersabda, “Dan
                     seseorang dari kalian senantiasa dihitung dalam keadaan
                     shalat selama shalat itu menahannya (dia menanti palaksanaan
@@ -109,7 +109,7 @@
                   >
                     <span class="text-6xl">{{ formatTime(iqomah) }}</span>
                   </div>
-                  <div class="text-2xl mt-2">
+                  <div class="text-xl mt-2">
                     Rasulullah shallallahu ‘alaihi wa sallam bersabda, “Dan
                     seseorang dari kalian senantiasa dihitung dalam keadaan
                     shalat selama shalat itu menahannya (dia menanti palaksanaan
@@ -120,7 +120,7 @@
                 </div>
                 <div v-else>
                   <div
-                    class="text-2xl mt-2  flex items-center justify-center"
+                    class="text-xl mt-2  flex items-center justify-center"
                     v-if="hadits.length"
                   >
                     <div class="w-1/2">
