@@ -302,13 +302,13 @@ export default {
       await this.initHadits();
     },
     initMainLecturer: async function () {
-      // const now = DateTime.local().toFormat("dd-MM-yyyy");
+      const now = DateTime.local().toFormat("dd-MM-yyyy");
       const tomorrow = DateTime.local()
         .plus({ days: 1 })
         .toFormat("dd-MM-yyyy");
-      // const afterTomorrow = DateTime.local()
-      //   .plus({ days: 2 })
-      //   .toFormat("dd-MM-yyyy");
+      const afterTomorrow = DateTime.local()
+        .plus({ days: 2 })
+        .toFormat("dd-MM-yyyy");
       // const afterAfterTomorrow = DateTime.local()
       //   .plus({ days: 3 })
       //   .toFormat("dd-MM-yyyy");
@@ -316,28 +316,28 @@ export default {
       let { data } = await this.$store.state.database
         .from("penceramah_tarawih")
         .select("*")
+        .or(`date.eq.${now},date.eq.${tomorrow},date.eq.${afterTomorrow}`)
         .order("id");
 
       this.ceramahMain = data
-        // TODO back to 3
-        // .filter((c) => {
-        //   if (
-        //     c.date === now ||
-        //     c.date === tomorrow ||
-        //     c.date === afterTomorrow
-        //   ) {
-        //     return {
-        //       ...c,
-        //     };
-        //   }
-        // })
-        .splice(0,3)
+        .filter((c) => {
+          if (
+            c.date === now ||
+            c.date === tomorrow ||
+            c.date === afterTomorrow
+          ) {
+            return {
+              ...c,
+            };
+          }
+        })
+        // .splice(0,3)
         .map((c) => {
           const newDay = DateTime.fromFormat(c.date, "dd-MM-yyyy");
           return {
             ...c,
             day: days[newDay.weekday - 1],
-            active: c.date === tomorrow,
+            active: c.date === now,
           };
         });
     },
