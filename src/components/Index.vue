@@ -76,10 +76,7 @@
               <div
                 class="main-content text-center text-2xl font-semibold flex flex-row items-center justify-center"
               >
-                <div
-                  class="my-4 items-center h-full w-3/5"
-                  v-if="beforeSholat < itv && beforeSholat > 0"
-                >
+                <div class="my-4 items-center h-full w-3/5" v-if="false">
                   <div class="uppercase text-3xl font-semibold">
                     Menuju Adzan
                   </div>
@@ -97,10 +94,7 @@
                     no. 659 dan Muslim no. 649)
                   </div>
                 </div>
-                <div
-                  class="my-4 items-center h-full w-3/5"
-                  v-else-if="iqomah < itv && iqomah > 0"
-                >
+                <div class="my-4 items-center h-full w-3/5" v-else-if="true">
                   <div class="uppercase text-3xl font-semibold">
                     Menuju Iqomah
                   </div>
@@ -110,17 +104,30 @@
                     <span class="text-6xl">{{ formatTime(iqomah) }}</span>
                   </div>
                   <div class="text-xl mt-2">
-                    Rasulullah shallallahu ‘alaihi wa sallam bersabda, “Dan
-                    seseorang dari kalian senantiasa dihitung dalam keadaan
-                    shalat selama shalat itu menahannya (dia menanti palaksanaan
-                    shalat). Di mana tidak ada yang menghalangi dia untuk
-                    kembali kepada keluarganya kecuali shalat itu.” (HR. Bukhari
-                    no. 659 dan Muslim no. 649)
+                    <div class="text-4xl">
+                      اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ
+                      وَالصَّلَاةِ الْقَائِمَةِ آتِ مُحَمَّدًا الْوَسِيلَةَ
+                      وَالْفَضِيلَةَ وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي
+                      وَعَدْتَهُ اِنَكَ لاَ تُخْلِفُ اْلمِيْعَاد
+                    </div>
+                    <div class="my-1 text-sm">
+                      Allahumma rabba haadzihid da'watit taammah. Wash shalaatil
+                      qaa-imah. Aati muhammadal wasiilata wal fadhiilah,
+                      wab'atshu maqoomam mahmuudal ladzii wa'adtahu innaka la
+                      tukhliful mi'ad.
+                    </div>
+                    <div>
+                      "Ya Allah, Tuhan yang memiliki panggilan ini, yang
+                      sempurna dan memiliki salat yang didirikan. Berilah Nabi
+                      Muhammad wasilah dan keutamaan, serta kemuliaan dan
+                      derajat yang tinggi, dan angkatlah ia ke tempat yang
+                      terpuji sebagaimana yang Engkau telah janjikan."
+                    </div>
                   </div>
                 </div>
                 <div v-else>
                   <div
-                    class="text-xl mt-2  flex items-center justify-center"
+                    class="text-xl mt-2 flex items-center justify-center"
                     v-if="hadits.length"
                   >
                     <div class="w-1/2">
