@@ -256,7 +256,7 @@ export default {
 
       let { data: pray_data } = await this.$store.state.database
         .from("pray_time")
-        .select("id, time, exact_time")
+        .select("id, time, exact_time, iqomah")
         .order("id");
 
       pray_data = pray_data.map((p) => {
@@ -448,6 +448,7 @@ export default {
         idx = 4;
       }
       const iq = this.pray[times[idx]];
+      this.itv_iqomah = this.offset[times[idx]];
 
       const time = iq;
       const hour = time.split(":")[0];
