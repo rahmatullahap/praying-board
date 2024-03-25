@@ -78,7 +78,11 @@
               >
                 <div
                   class="my-4 items-center h-full w-3/5"
-                  v-if="beforeSholat < itv && beforeSholat > 0"
+                  v-if="
+                    beforeSholat < itv &&
+                    beforeSholat > 0 &&
+                    active !== 'Sunrise'
+                  "
                 >
                   <div class="uppercase text-3xl font-semibold">
                     Menuju Adzan
@@ -99,7 +103,9 @@
                 </div>
                 <div
                   class="my-4 items-center h-full w-3/5"
-                  v-else-if="iqomah < itv && iqomah > 0"
+                  v-else-if="
+                    iqomah < itv_iqomah && iqomah > 0 && active !== 'Sunrise'
+                  "
                 >
                   <div class="uppercase text-3xl font-semibold">
                     Menuju Iqomah
@@ -180,6 +186,11 @@
                   :active="active === 'Fajr'"
                 ></Time>
                 <Time
+                  :label="'Syuruq'"
+                  :time="pray.Sunrise"
+                  :active="active === 'Sunrise'"
+                ></Time>
+                <Time
                   :label="'Dzuhur'"
                   :time="pray.Dhuhr"
                   :active="active === 'Dhuhr'"
@@ -223,7 +234,7 @@ import axios from "axios";
 import { DateTime } from "luxon";
 import MarqueeText from "vue-marquee-text-component";
 
-const times = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
+const times = ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha"];
 const days = ["Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu", "Ahad"];
 export default {
   name: "Index",
@@ -279,6 +290,15 @@ export default {
           Maghrib: pray_data[5].exact_time || j.maghrib,
           Isha: pray_data[6].exact_time || j.isya,
           Midnight: "23:59",
+        };
+        this.offset = {
+          Imsak: parseInt(pray_data[0].iqomah || "10") * 60,
+          Sunrise: parseInt(pray_data[1].iqomah || "10") * 60,
+          Fajr: parseInt(pray_data[2].iqomah || "10") * 60,
+          Dhuhr: parseInt(pray_data[3].iqomah || "10") * 60,
+          Asr: parseInt(pray_data[4].iqomah || "10") * 60,
+          Maghrib: parseInt(pray_data[5].iqomah || "10") * 60,
+          Isha: parseInt(pray_data[6].iqomah || "10") * 60,
         };
       });
     },
@@ -433,7 +453,7 @@ export default {
       const hour = time.split(":")[0];
       const minute = time.split(":")[1];
       const date = now.set({ hour, minute, second: 0 });
-      const diff = Math.ceil(date.diffNow("seconds").seconds) + this.itv;
+      const diff = Math.ceil(date.diffNow("seconds").seconds) + this.itv_iqomah;
 
       if (diff >= 0) {
         this.iqomah = diff;
@@ -496,6 +516,15 @@ export default {
         Maghrib: "00:00",
         Isha: "00:00",
       },
+      offset: {
+        Imsak: "10",
+        Sunrise: "10",
+        Fajr: "10",
+        Dhuhr: "10",
+        Asr: "10",
+        Maghrib: "10",
+        Isha: "10",
+      },
       location: Object,
       date: String,
       active: null,
@@ -503,6 +532,7 @@ export default {
       iqomah: null,
       // 10 minute after adzan
       itv: 600,
+      itv_iqomah: 600,
       playing: true,
       initiateDate: Number,
       ceramahMain: [],

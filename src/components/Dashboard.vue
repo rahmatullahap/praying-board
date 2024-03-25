@@ -11,7 +11,7 @@
   <div class="flex flex-col items-center justify-center p-10">
     <div class="bg-white p-8 rounded shadow-md mb-4 w-full mt-8 flex gap-4">
       <div class="w-full">
-        <h2 class="text-lg font-bold mb-4">Waktu Sholat</h2>
+        <h2 class="text-lg font-bold mb-4">Waktu Sholat (Jam | Menit menuju Iqomah)</h2>
         <form @submit.prevent="submitFormSholat">
           <div>
             <label
@@ -19,10 +19,33 @@
               class="block text-gray-700 text-sm font-bold mb-2"
               >Subuh</label
             >
+            <div class="flex items-center gap-2">
+              <input
+                type="text"
+                id="subuh"
+                v-model="sholat.fajr"
+                class="w-full h-10 px-3 border rounded-lg focus:outline-none focus:border-blue-500"
+                placeholder="Waktu dengan format HH:MM"
+              />
+              <input
+                type="text"
+                id="iqomahsubuh"
+                v-model="iqomah.fajr"
+                class="w-full h-10 px-3 border rounded-lg focus:outline-none focus:border-blue-500"
+                placeholder="Waktu dengan format HH:MM"
+              />
+            </div>
+          </div>
+          <div>
+            <label
+              for="syuruq"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Syuruq</label
+            >
             <input
               type="text"
-              id="subuh"
-              v-model="sholat.fajr"
+              id="syuruq"
+              v-model="sholat.sunrise"
               class="w-full h-10 px-3 border rounded-lg focus:outline-none focus:border-blue-500"
               placeholder="Waktu dengan format HH:MM"
             />
@@ -33,13 +56,22 @@
               class="block text-gray-700 text-sm font-bold mb-2"
               >Dzuhur</label
             >
-            <input
-              type="text"
-              id="dzuhur"
-              v-model="sholat.dhuhr"
-              class="w-full h-10 px-3 border rounded-lg focus:outline-none focus:border-blue-500"
-              placeholder="Waktu dengan format HH:MM"
-            />
+            <div class="flex items-center gap-2">
+              <input
+                type="text"
+                id="dzuhur"
+                v-model="sholat.dhuhr"
+                class="w-full h-10 px-3 border rounded-lg focus:outline-none focus:border-blue-500"
+                placeholder="Waktu dengan format HH:MM"
+              />
+              <input
+                type="text"
+                id="iqomahdzuhur"
+                v-model="iqomah.dhuhr"
+                class="w-full h-10 px-3 border rounded-lg focus:outline-none focus:border-blue-500"
+                placeholder="Waktu dengan format HH:MM"
+              />
+            </div>
           </div>
           <div>
             <label
@@ -47,13 +79,22 @@
               class="block text-gray-700 text-sm font-bold mb-2"
               >Ashar</label
             >
-            <input
-              type="text"
-              id="ashar"
-              v-model="sholat.asr"
-              class="w-full h-10 px-3 border rounded-lg focus:outline-none focus:border-blue-500"
-              placeholder="Waktu dengan format HH:MM"
-            />
+            <div class="flex items-center gap-2">
+              <input
+                type="text"
+                id="ashar"
+                v-model="sholat.asr"
+                class="w-full h-10 px-3 border rounded-lg focus:outline-none focus:border-blue-500"
+                placeholder="Waktu dengan format HH:MM"
+              />
+              <input
+                type="text"
+                id="iqomahashar"
+                v-model="iqomah.asr"
+                class="w-full h-10 px-3 border rounded-lg focus:outline-none focus:border-blue-500"
+                placeholder="Waktu dengan format HH:MM"
+              />
+            </div>
           </div>
           <div>
             <label
@@ -61,25 +102,43 @@
               class="block text-gray-700 text-sm font-bold mb-2"
               >Maghrib</label
             >
-            <input
-              type="text"
-              id="maghrib"
-              v-model="sholat.maghrib"
-              class="w-full h-10 px-3 border rounded-lg focus:outline-none focus:border-blue-500"
-              placeholder="Waktu dengan format HH:MM"
-            />
+            <div class="flex items-center gap-2">
+              <input
+                type="text"
+                id="maghrib"
+                v-model="sholat.maghrib"
+                class="w-full h-10 px-3 border rounded-lg focus:outline-none focus:border-blue-500"
+                placeholder="Waktu dengan format HH:MM"
+              />
+              <input
+                type="text"
+                id="iqomahmaghrib"
+                v-model="iqomah.maghrib"
+                class="w-full h-10 px-3 border rounded-lg focus:outline-none focus:border-blue-500"
+                placeholder="Waktu dengan format HH:MM"
+              />
+            </div>
           </div>
           <div>
             <label for="isya" class="block text-gray-700 text-sm font-bold mb-2"
               >Isya</label
             >
-            <input
-              type="text"
-              id="isya"
-              v-model="sholat.isha"
-              class="w-full h-10 px-3 border rounded-lg focus:outline-none focus:border-blue-500"
-              placeholder="Waktu dengan format HH:MM"
-            />
+            <div class="flex items-center gap-2">
+              <input
+                type="text"
+                id="isya"
+                v-model="sholat.isha"
+                class="w-full h-10 px-3 border rounded-lg focus:outline-none focus:border-blue-500"
+                placeholder="Waktu dengan format HH:MM"
+              />
+              <input
+                type="text"
+                id="iqomahisya"
+                v-model="iqomah.isha"
+                class="w-full h-10 px-3 border rounded-lg focus:outline-none focus:border-blue-500"
+                placeholder="Waktu dengan format HH:MM"
+              />
+            </div>
           </div>
 
           <button
@@ -214,6 +273,15 @@ export default {
       hadits: [],
       sholat: {
         fajr: "",
+        sunrise: "",
+        dhuhr: "",
+        asr: "",
+        maghrib: "",
+        isha: "",
+      },
+      iqomah: {
+        fajr: "",
+        sunrise: "",
         dhuhr: "",
         asr: "",
         maghrib: "",
@@ -253,10 +321,19 @@ export default {
         .order("id");
       this.sholat = {
         fajr: data[2].exact_time,
+        sunrise: data[1].exact_time,
         dhuhr: data[3].exact_time,
         asr: data[4].exact_time,
         maghrib: data[5].exact_time,
         isha: data[6].exact_time,
+      };
+      this.iqomah = {
+        fajr: data[2].iqomah,
+        sunrise: data[1].iqomah,
+        dhuhr: data[3].iqomah,
+        asr: data[4].iqomah,
+        maghrib: data[5].iqomah,
+        isha: data[6].iqomah,
       };
     },
     getInformation: async function () {
@@ -311,7 +388,7 @@ export default {
         }
       }
       await this.getHadits();
-      this.toast.success('Sukses merubah data');
+      this.toast.success("Sukses merubah data");
     },
     logout() {
       this.$store.dispatch("logout");
