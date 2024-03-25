@@ -76,7 +76,10 @@
               <div
                 class="main-content text-center text-2xl font-semibold flex flex-row items-center justify-center"
               >
-                <div class="my-4 items-center h-full w-3/5" v-if="false">
+                <div
+                  class="my-4 items-center h-full w-3/5"
+                  v-if="beforeSholat < itv && beforeSholat > 0"
+                >
                   <div class="uppercase text-3xl font-semibold">
                     Menuju Adzan
                   </div>
@@ -94,7 +97,10 @@
                     no. 659 dan Muslim no. 649)
                   </div>
                 </div>
-                <div class="my-4 items-center h-full w-3/5" v-else-if="true">
+                <div
+                  class="my-4 items-center h-full w-3/5"
+                  v-else-if="iqomah < itv && iqomah > 0"
+                >
                   <div class="uppercase text-3xl font-semibold">
                     Menuju Iqomah
                   </div>
