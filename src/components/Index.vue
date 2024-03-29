@@ -107,35 +107,37 @@
                     iqomah < itv_iqomah && iqomah > 0 && active !== 'Sunrise'
                   "
                 >
-                  <div class="uppercase text-3xl font-semibold">
-                    Menuju Iqomah
-                  </div>
-                  <div
-                    class="bg-blue-midnight text-white border border-solid rounded-2xl font-nunito"
-                  >
-                    <span class="text-6xl">{{ formatTime(iqomah) }}</span>
-                  </div>
-                  <div class="text-xl mt-2">
-                    <div class="text-4xl">
-                      اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ
-                      وَالصَّلَاةِ الْقَائِمَةِ آتِ مُحَمَّدًا الْوَسِيلَةَ
-                      وَالْفَضِيلَةَ وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي
-                      وَعَدْتَهُ اِنَكَ لاَ تُخْلِفُ اْلمِيْعَاد
+                  <ModalComponent v-if="iqomah < itv_iqomah && iqomah > 0 && active !== 'Sunrise'">
+                    <div class="uppercase text-3xl font-semibold">
+                      Menuju Iqomah
                     </div>
-                    <div class="my-1 text-sm">
-                      Allahumma rabba haadzihid da'watit taammah. Wash shalaatil
-                      qaa-imah. Aati muhammadal wasiilata wal fadhiilah,
-                      wab'atshu maqoomam mahmuudal ladzii wa'adtahu innaka la
-                      tukhliful mi'ad.
+                    <div
+                      class="bg-blue-midnight text-white border border-solid rounded-2xl font-nunito mx-20"
+                    >
+                      <span class="text-6xl">{{ formatTime(iqomah) }}</span>
                     </div>
-                    <div>
-                      "Ya Allah, Tuhan yang memiliki panggilan ini, yang
-                      sempurna dan memiliki salat yang didirikan. Berilah Nabi
-                      Muhammad wasilah dan keutamaan, serta kemuliaan dan
-                      derajat yang tinggi, dan angkatlah ia ke tempat yang
-                      terpuji sebagaimana yang Engkau telah janjikan."
+                    <div class="text-xl mt-2">
+                      <div class="text-6xl">
+                        اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ
+                        وَالصَّلَاةِ الْقَائِمَةِ آتِ مُحَمَّدًا الْوَسِيلَةَ
+                        وَالْفَضِيلَةَ وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي
+                        وَعَدْتَهُ اِنَكَ لاَ تُخْلِفُ اْلمِيْعَاد
+                      </div>
+                      <div class="my-8 text-xl">
+                        Allahumma rabba haadzihid da'watit taammah. Wash
+                        shalaatil qaa-imah. Aati muhammadal wasiilata wal
+                        fadhiilah, wab'atshu maqoomam mahmuudal ladzii wa'adtahu
+                        innaka la tukhliful mi'ad.
+                      </div>
+                      <div class="text-2xl">
+                        "Ya Allah, Tuhan yang memiliki panggilan ini, yang
+                        sempurna dan memiliki salat yang didirikan. Berilah Nabi
+                        Muhammad wasilah dan keutamaan, serta kemuliaan dan
+                        derajat yang tinggi, dan angkatlah ia ke tempat yang
+                        terpuji sebagaimana yang Engkau telah janjikan."
+                      </div>
                     </div>
-                  </div>
+                  </ModalComponent>
                 </div>
                 <div v-else>
                   <div
@@ -230,6 +232,7 @@
 <script>
 import Time from "../components/Time.vue";
 import Side from "../components/Side.vue";
+import ModalComponent from '../components/Modal.vue';
 import axios from "axios";
 import { DateTime } from "luxon";
 import MarqueeText from "vue-marquee-text-component";
@@ -243,6 +246,7 @@ export default {
     Time,
     Side,
     MarqueeText,
+    ModalComponent
   },
   methods: {
     getPrayTime: async function () {
