@@ -1,7 +1,7 @@
 <template>
   <div class="bg-wrap h-full">
     <img class="background-image" src="../assets/bg.jpg" alt="" />
-    <div class="content h-full">
+    <div class="content h-full" v-if="!isOnSholat()">
       <div
         class="grid grid-cols-1 lg:grid-cols-4 xl:grid-cols-4 gap-0 lg:h-full xl:h-full"
       >
@@ -219,7 +219,7 @@
       </div>
     </div>
   </div>
-  <div class="fixed bottom-0 py-1 w-full text-white bg-blue-midnight">
+  <div class="fixed bottom-0 py-1 w-full text-white bg-blue-midnight" v-if="!isOnSholat()">
     <marquee-text
       :duration="40"
       class="text-lg lg:text-2xl xl:text-4xl uppercase"
@@ -449,7 +449,7 @@ export default {
       if (idx !== 0) {
         idx--;
       } else {
-        idx = 4;
+        idx = times.length - 1;
       }
       const iq = this.pray[times[idx]];
       this.itv_iqomah = this.offset[times[idx]];
@@ -462,6 +462,15 @@ export default {
 
       if (diff >= 0) {
         this.iqomah = diff;
+      }
+
+      const time1 = this.pray[times[idx]];
+      const hour1 = time1.split(":")[0];
+      const minute1 = time1.split(":")[1];
+      const date1 = now.set({ hour: hour1, minute: minute1, second: 0 });
+      const diffSholat = Math.ceil(date1.diffNow("seconds").seconds) + this.itv_iqomah;
+      if (diffSholat < 0) {
+        this.sholat = Math.abs(diffSholat);
       }
     },
     initRunningText: async function () {
@@ -507,6 +516,12 @@ export default {
           : data[0].detail;
       }
     },
+    isOnSholat: function () {
+      if (this.sholat < this.itv_sholat) {
+        return true;
+      }
+      return false;
+    },
   },
   data() {
     return {
@@ -535,9 +550,11 @@ export default {
       active: null,
       beforeSholat: null,
       iqomah: null,
+      sholat: null,
       // 10 minute after adzan
       itv: 600,
       itv_iqomah: 600,
+      itv_sholat: 10 * 60,
       playing: true,
       initiateDate: Number,
       ceramahMain: [],

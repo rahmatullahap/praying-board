@@ -408,7 +408,7 @@ export default {
       for (let s in this.sholat) {
         const { error } = await this.$store.state.database
           .from("pray_time")
-          .update({ exact_time: this.sholat[s] })
+          .update({ exact_time: this.sholat[s], iqomah: this.iqomah[s] })
           .eq("time", s)
           .select();
         if (error) {
