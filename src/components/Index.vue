@@ -123,7 +123,7 @@
                         وَالْفَضِيلَةَ وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي
                         وَعَدْتَهُ اِنَكَ لاَ تُخْلِفُ اْلمِيْعَاد
                       </div>
-                      <div class="my-8 text-lg">
+                      <div class="my-2 text-lg">
                         Allahumma rabba haadzihid da'watit taammah. Wash
                         shalaatil qaa-imah. Aati muhammadal wasiilata wal
                         fadhiilah, wab'atshu maqoomam mahmuudal ladzii wa'adtahu
