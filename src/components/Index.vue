@@ -417,8 +417,9 @@ export default {
             ...c,
             day: days[newDay.weekday - 1],
             active: diff < 7 && diff > 0,
+            date_format: DateTime.fromFormat(c.date, 'dd-MM-yyyy').toJSDate()
           };
-        });
+        }).sort((a, b) => a.date_format - b.date_format);
     },
     getNearerTime: function () {
       const diffs = [];
