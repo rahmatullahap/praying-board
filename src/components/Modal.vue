@@ -54,6 +54,7 @@ export default {
   padding: 2rem;
   border-radius: 8px;
   width: 100%; /* Set modal width */
-  max-width: 70vw; /* Optional: Set max-width to prevent the modal from becoming too wide */
+  max-width: 60vw; /* Optional: Set max-width to prevent the modal from becoming too wide */
+  max-height: 80vh;
 }
 </style>
