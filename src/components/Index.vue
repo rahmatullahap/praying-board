@@ -123,13 +123,13 @@
                         وَالْفَضِيلَةَ وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي
                         وَعَدْتَهُ اِنَكَ لاَ تُخْلِفُ اْلمِيْعَاد
                       </div>
-                      <div class="my-8 text-xl">
+                      <div class="my-8 text-lg">
                         Allahumma rabba haadzihid da'watit taammah. Wash
                         shalaatil qaa-imah. Aati muhammadal wasiilata wal
                         fadhiilah, wab'atshu maqoomam mahmuudal ladzii wa'adtahu
                         innaka la tukhliful mi'ad.
                       </div>
-                      <div class="text-2xl">
+                      <div class="text-xl">
                         "Ya Allah, Tuhan yang memiliki panggilan ini, yang
                         sempurna dan memiliki salat yang didirikan. Berilah Nabi
                         Muhammad wasilah dan keutamaan, serta kemuliaan dan
