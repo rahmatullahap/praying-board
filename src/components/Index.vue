@@ -469,7 +469,8 @@ export default {
       const hour1 = time1.split(":")[0];
       const minute1 = time1.split(":")[1];
       const date1 = now.set({ hour: hour1, minute: minute1, second: 0 });
-      const diffSholat = Math.ceil(date1.diffNow("seconds").seconds) + this.itv_iqomah;
+      const iqmh = date1.plus({seconds: this.itv_iqomah});
+      const diffSholat = Math.ceil(iqmh.diffNow("seconds").seconds);
       if (diffSholat < 0) {
         this.sholat = Math.abs(diffSholat);
       }
@@ -518,7 +519,7 @@ export default {
       }
     },
     isOnSholat: function () {
-      if (this.sholat < this.itv_sholat) {
+      if (this.sholat && this.sholat < this.itv_sholat) {
         return true;
       }
       return false;
