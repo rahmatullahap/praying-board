@@ -179,7 +179,7 @@
     <!-- Editable table -->
     <div class="bg-white p-4 rounded shadow-md w-full flex gap-4 mb-4">
       <div class="w-full">
-        <h2 class="text-lg font-bold mb-4">Penceramah | Imam Tarawih</h2>
+        <h2 class="text-lg font-bold mb-4">Penceramah Subuh</h2>
         <table class="w-full">
           <thead>
             <tr>
@@ -302,7 +302,7 @@ export default {
   methods: {
     getPenceramahMain: async function () {
       let { data } = await this.$store.state.database
-        .from("penceramah_tarawih")
+        .from("penceramah_subuh")
         .select("*")
         .order("id");
       this.schedule_main = data;
@@ -352,7 +352,7 @@ export default {
     },
     updatePenceramahMain: async function (id, lecturer, date) {
       const { error } = await this.$store.state.database
-        .from("penceramah_tarawih")
+        .from("penceramah_subuh")
         .update({ lecturer, date })
         .eq("id", id)
         .select();

@@ -23,7 +23,7 @@
           <div class="side-content pb-2">
             <Side
               class="mt-3"
-              title="Imam dan Penceramah Tarawih"
+              title="Penceramah Subuh"
               :content="this.ceramahMain"
             ></Side>
             <Side
@@ -351,7 +351,7 @@ export default {
       //   .toFormat("dd-MM-yyyy");
 
       let { data } = await this.$store.state.database
-        .from("penceramah_tarawih")
+        .from("penceramah_subuh")
         .select("*")
         .or(`date.eq.${now},date.eq.${tomorrow},date.eq.${afterTomorrow}`)
         .order("id");
