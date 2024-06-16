@@ -141,17 +141,9 @@
                 </div>
                 <div v-else>
                   <div
-                    class="text-xl mt-2 flex items-center justify-center"
-                    v-if="hadits.length"
-                  >
-                    <div class="w-1/2">
-                      {{ hadits[currentIndex] }}
-                    </div>
-                  </div>
-                  <div
                     class="flex justify-center relative"
                     style="width: 48vw; height: 49vh"
-                    v-else
+                    v-if="video_url"
                   >
                     <iframe
                       :src="video_url"
@@ -174,6 +166,14 @@
                       height="100%"
                       width="100%"
                     ></iframe>
+                  </div>
+                  <div
+                    class="text-xl mt-2 flex items-center justify-center"
+                    v-else-if="hadits.length"
+                  >
+                    <div class="w-1/2">
+                      {{ hadits[currentIndex] }}
+                    </div>
                   </div>
                 </div>
               </div>
