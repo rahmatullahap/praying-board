@@ -618,7 +618,7 @@ export default {
 }
 
 .background-image {
-  opacity: 0.2;
+  opacity: 0.5;
   position: absolute;
   left: 0;
   top: 0;
