@@ -179,7 +179,7 @@
     <!-- Editable table -->
     <div class="bg-white p-4 rounded shadow-md w-full flex gap-4 mb-4">
       <div class="w-full">
-        <h2 class="text-lg font-bold mb-4">Penceramah Subuh</h2>
+        <h2 class="text-lg font-bold mb-4">{{ ceramah_title }}</h2>
         <table class="w-full">
           <thead>
             <tr>
@@ -290,6 +290,7 @@ export default {
       // Add more data properties as needed
       schedule_main: [{ id: "", lecturer: "", date: "" }],
       schedule_jumah: [{ id: "", lecturer: "", date: "" }],
+      ceramah_title: process.env.VUE_APP_CERAMAH_MAIN || "Penceramah Subuh",
     };
   },
   mounted() {

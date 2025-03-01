@@ -23,7 +23,7 @@
           <div class="side-content pb-2">
             <Side
               class="mt-3"
-              title="Penceramah Subuh"
+              :title="this.ceramahTitle"
               :content="this.ceramahMain"
             ></Side>
             <Side
@@ -566,6 +566,7 @@ export default {
       qrCode: null,
       video_url: null,
       currentIndex: 0,
+      ceramahTitle: process.env.VUE_APP_CERAMAH_MAIN || "Penceramah Subuh",
     };
   },
   beforeUnmount() {
