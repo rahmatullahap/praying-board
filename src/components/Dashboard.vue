@@ -11,7 +11,9 @@
   <div class="flex flex-col items-center justify-center p-10">
     <div class="bg-white p-8 rounded shadow-md mb-4 w-full mt-8 flex gap-4">
       <div class="w-full">
-        <h2 class="text-lg font-bold mb-4">Waktu Sholat (Jam | Menit menuju Iqomah)</h2>
+        <h2 class="text-lg font-bold mb-4">
+          Waktu Sholat (Jam | Menit menuju Iqomah)
+        </h2>
         <form @submit.prevent="submitFormSholat">
           <div>
             <label
@@ -152,7 +154,7 @@
       <div class="w-full">
         <h2 class="text-lg font-bold mb-4">Information</h2>
         <form @submit.prevent="submitFormInformation">
-          <div v-for="(info, index) in this.information" :key="index">
+          <div v-for="(info, index) in filteredInformation" :key="index">
             <label
               :for="info.key"
               class="block text-gray-700 text-sm font-bold mb-2"
@@ -164,6 +166,34 @@
               v-model="info.detail"
               class="w-full h-10 px-3 border rounded-lg focus:outline-none focus:border-blue-500"
             />
+          </div>
+
+          <div class="mt-4 mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">Mode Ramadhan</label>
+            <div class="flex items-center gap-4">
+              <label class="flex items-center cursor-pointer">
+                <input
+                  type="radio"
+                  name="ramadan_mode"
+                  :value="true"
+                  v-model="ramadan_mode"
+                  @change="updateRamadanMode(true)"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
+                />
+                <span class="ml-2 text-sm font-medium text-gray-700">Aktif</span>
+              </label>
+              <label class="flex items-center cursor-pointer">
+                <input
+                  type="radio"
+                  name="ramadan_mode"
+                  :value="false"
+                  v-model="ramadan_mode"
+                  @change="updateRamadanMode(false)"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
+                />
+                <span class="ml-2 text-sm font-medium text-gray-700">Tidak Aktif</span>
+              </label>
+            </div>
           </div>
 
           <button
@@ -179,7 +209,7 @@
     <!-- Editable table -->
     <div class="bg-white p-4 rounded shadow-md w-full flex gap-4 mb-4">
       <div class="w-full">
-        <h2 class="text-lg font-bold mb-4">{{ ceramah_title }}</h2>
+        <h2 class="text-lg font-bold mb-4">{{ ceramahLabel }}</h2>
         <table class="w-full">
           <thead>
             <tr>
@@ -290,20 +320,91 @@ export default {
       // Add more data properties as needed
       schedule_main: [{ id: "", lecturer: "", date: "" }],
       schedule_jumah: [{ id: "", lecturer: "", date: "" }],
-      ceramah_title: process.env.VUE_APP_CERAMAH_MAIN || "Penceramah Subuh",
+      ceramah_title: this.ramadan_mode
+        ? "Penceramah Tarawih"
+        : "Penceramah Subuh",
+      ramadan_mode: false,
     };
   },
-  mounted() {
-    this.getPenceramahMain();
+  computed: {
+    ceramahTableName() {
+      return this.ramadan_mode ? "penceramah_tarawih" : "penceramah_subuh";
+    },
+    ceramahLabel() {
+      return this.ramadan_mode
+        ? "Imam dan Penceramah Tarawih"
+        : "Penceramah Subuh";
+    },
+    filteredInformation() {
+      return this.information.filter((info) => info.key !== "ramadan_mode");
+    },
+  },
+  async mounted() {
+    await this.getRamadanMode();
+    await this.getPenceramahMain();
     this.getPenceramahJumat();
     this.getSholat();
     this.getInformation();
     this.getHadits();
   },
   methods: {
+    getRamadanMode: async function () {
+      let { data } = await this.$store.state.database
+        .from("information")
+        .select("*")
+        .eq("key", "ramadan_mode")
+        .maybeSingle();
+
+      if (data && data.detail !== null && data.detail !== undefined) {
+        // Handle both string "true"/"false" and boolean true/false
+        const detailValue = String(data.detail).toLowerCase().trim();
+        this.ramadan_mode = detailValue === "true" || detailValue === "1";
+      } else {
+        this.ramadan_mode = false;
+      }
+    },
+    updateRamadanMode: async function (value) {
+      // Check if record exists
+      const { data: existing } = await this.$store.state.database
+        .from("information")
+        .select("*")
+        .eq("key", "ramadan_mode")
+        .single();
+
+      let error = null;
+      if (existing) {
+        // Update existing record
+        const { error: updateError } = await this.$store.state.database
+          .from("information")
+          .update({
+            info: "Mode Ramadhan",
+            detail: value ? "true" : "false",
+          })
+          .eq("key", "ramadan_mode");
+        error = updateError;
+      } else {
+        // Insert new record
+        const { error: insertError } = await this.$store.state.database
+          .from("information")
+          .insert({
+            key: "ramadan_mode",
+            info: "Mode Ramadhan",
+            detail: value ? "true" : "false",
+          });
+        error = insertError;
+      }
+
+      if (error) {
+        this.toast.error(error.message);
+      } else {
+        this.ramadan_mode = value;
+        await this.getPenceramahMain();
+        this.toast.success("Mode Ramadhan berhasil diubah");
+      }
+    },
     getPenceramahMain: async function () {
       let { data } = await this.$store.state.database
-        .from("penceramah_subuh")
+        .from(this.ceramahTableName)
         .select("*")
         .order("id");
       this.schedule_main = data;
@@ -343,6 +444,8 @@ export default {
         .select("*")
         .order("id");
       this.information = data;
+      // Update ramadan_mode after fetching information
+      await this.getRamadanMode();
     },
     getHadits: async function () {
       let { data } = await this.$store.state.database
@@ -353,7 +456,7 @@ export default {
     },
     updatePenceramahMain: async function (id, lecturer, date) {
       const { error } = await this.$store.state.database
-        .from("penceramah_subuh")
+        .from(this.ceramahTableName)
         .update({ lecturer, date })
         .eq("id", id)
         .select();

@@ -23,7 +23,7 @@
           <div class="side-content pb-2">
             <Side
               class="mt-3"
-              :title="this.ceramahTitle"
+              :title="this.ceramahLabel"
               :content="this.ceramahMain"
             ></Side>
             <Side
@@ -329,8 +329,20 @@ export default {
       }
       return `${m} : ${s}`;
     },
+    getRamadanMode: async function () {
+      let { data } = await this.$store.state.database
+        .from("information")
+        .select("*")
+        .eq("key", "ramadan_mode")
+        .single();
+      
+      if (data) {
+        this.ramadan_mode = data.detail === "true";
+      }
+    },
     getContent: async function () {
       // get dynamic content
+      await this.getRamadanMode();
       await this.initMainLecturer();
       await this.initJumaahLecturer();
       await this.initRunningText();
@@ -351,7 +363,7 @@ export default {
       //   .toFormat("dd-MM-yyyy");
 
       let { data } = await this.$store.state.database
-        .from("penceramah_subuh")
+        .from(this.ceramahTableName)
         .select("*")
         .or(`date.eq.${now},date.eq.${tomorrow},date.eq.${afterTomorrow}`)
         .order("id");
@@ -566,8 +578,17 @@ export default {
       qrCode: null,
       video_url: null,
       currentIndex: 0,
-      ceramahTitle: process.env.VUE_APP_CERAMAH_MAIN || "Penceramah Subuh",
+      ceramahTitle: this.ramadan_mode ? "Penceramah Tarawih" : "Penceramah Subuh",
+      ramadan_mode: false,
     };
+  },
+  computed: {
+    ceramahTableName() {
+      return this.ramadan_mode ? "penceramah_tarawih" : "penceramah_subuh";
+    },
+    ceramahLabel() {
+      return this.ramadan_mode ? "Imam dan Penceramah Tarawih" : "Penceramah Subuh";
+    },
   },
   beforeUnmount() {
     // prevent memory leak
@@ -600,6 +621,11 @@ export default {
         await this.getContent();
         this.initiateDate = 0;
         console.log("triggered");
+      }
+      
+      // refresh ramadan mode every minute to check for changes
+      if (this.initiateDate % 60 === 0) {
+        await this.getRamadanMode();
       }
 
       this.getNearerTime();
